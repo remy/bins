@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://unpkg.com/memfetch@1.1.2/dist/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.min.js"> </script>
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.js"></script>
+  <title>Markdown reviews</title>
+<style id="jsbin-css">
+* {
+  font-family: 'ubuntu mono';
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <section v-if="errored">
+    <p>We're sorry, we're not able to retrieve this information at the moment, please try back later.</p>
+    <p>
+      Message: <strong>{{ error }}</strong>
+    </p>
+  </section>
+
+  <section v-else>
+    <div v-if="loading">Loading...</div>
+
+    <pre
+      v-else
+      v-for="review in info">&lt;hr class="review-break"&gt;
+&lt;img width="98" class="review-image" src="{{ review.book.image }}"&gt;
+
+##### **[{{ review.book.title }}]({{ review.book.url }}) by {{ review.book.author }}**
+
+{{ review.rating | asRating }}
+<div v-if="review.spoiler == 'true' && review.review">
+&lt;details&gt;&lt;summary&gt;Spoiler&lt;/summary&gt;
+
+{{ review.review | turndown | marked }}
+&lt;/details&gt;
+</div>
+<div v-else-if="review.review">
+{{ review.review | turndown }}
+</div>
+&lt;small class="reading-metadata"&gt;
+Read: {{ review.read | formatDate }}<span v-if="review.duration != 'unknown'">&lt;br&gt;Read in: {{ review.duration }}</span><span v-if="review.book.pages">
+&lt;br&gt;Pages: {{ review.book.pages }}
+</span>&lt;/small&gt;
+    </pre>
+  </section>
+</div>
+<!--boot js--><script id="jsbin-javascript" defer>const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFDQnlCczFhYVl4IiwicGF0aCI6IiIsImlhdCI6MTU0Njg3NzY2MiwiZXhwIjoxNTQ2ODkyMDYyfQ.0P2cPXyjGOF74OyvSH9UZHZETCHDkbEpM5g3n2odA-Q';
+
+var turndownService = new TurndownService();
+Vue.filter('turndown', function (value) {
+  return turndownService.turndown(value).replace(/\\([->])/g, '$1');
+});
+
+function asRating(value) {
+  return `<span aria-label="${ value } stars out of 5">${ '★'.repeat(value) }${ '☆'.repeat(5 - value)}</span>`
+}
+
+Vue.filter('marked', value => marked(value.replace(/\\([->])/g, '$1')));
+
+Vue.filter('asRating', asRating);
+
+const months = 'Jan Fed Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ');
+
+fetch.seed = 5;
+
+Vue.filter('formatDate', function (value) {
+  const d = new Date(value);
+  return `${d.getDate()}-${months[d.getMonth()]} ${d.getFullYear()}`;
+});
+
+
+const app = new Vue({
+  el: '#app',
+  data () {
+    return {
+      loading: true,
+      info: null,
+      errored: false,
+    }
+  },
+  async mounted () {
+    try {
+      const res = await fetch('https://jsonbin.org/me/reads/2018', {
+		    headers: {'authorization': `Bearer ${token}`}
+		  });
+
+      if (res.status !== 200) {
+        fetch.seed++;
+        throw new Error(res.status);
+      }
+      const json = await res.json();
+      this.info = json;
+      this.loading = false;
+    } catch (e) {
+      console.log(e);
+      this.errored = true;
+      this.error = e.message;
+    }
+  }
+})
+
+</script>
+</body>
+</html>
