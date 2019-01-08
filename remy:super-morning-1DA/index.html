@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Teselate</title>
+<style id="jsbin-css">
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fdfdfd;
+  background-image: linear-gradient(to bottom, #cfd9df 0%, #e2ebf0 100%);
+  image-rendering: pixelated;
+  background-size: 200%;
+  background-position-y: 46px;
+}
+
+canvas {
+  border: 0px solid #cfd9df;
+  display: block;
+/*   transform: scale(2); */
+  image-rendering: pixelated;
+  opacity: 0;
+/*   filter: invert(100%); */
+}
+
+header {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  height: 46px;
+}
+
+#speed {
+  border: 0;
+  padding: 10px;
+  right: 0;
+  font-family: monospace;
+  line-height: 2;
+  display: flex;
+}
+
+#speed input {
+  margin-right: 8px;
+}
+
+#shapes {
+  z-index: 1;
+  font-family: monospace;
+  font-size: 16px;
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  left: 0;
+}
+
+#shapes:focus {
+  outline: 0px solid #000;
+  background: black;
+  color: white;
+}
+</style>
+</head>
+<body>
+  <canvas></canvas>
+  <header>
+    <input type="text" id="shapes" placeholder="shapes '' .. ::">
+    <span id="speed"><input type="range" value="20" min="1" max="99"> <span>20</span>ms</span>
+  </header>
+  
+<!--boot js--><script id="jsbin-javascript" defer>const $ = s => document.querySelector(s);
+const canvas = $('canvas');
+const speedInput = $('#speed input');
+const speedOutput = $('#speed span');
+const input = $('#shapes');
+
+const ctx = canvas.getContext('2d');
+const full = true;
+const scale = 0.5;
+const dotOffset = 4 * scale;
+const width = canvas.width = 256 * scale;
+const height = canvas.height = 192 * scale;
+
+let line = 0;
+let col = -8 * scale;
+
+let last = {};
+let speed = parseInt(speedInput.value, 10);
+
+const ONE = 0x1;
+const TWO = 0x2;
+const THREE = 0x4;
+const FOUR = 0x8;
+
+let j = 0;
+let shapes = [`'.`, `.: `, ' :', `'.`, `:.`];
+
+// all shapes
+// shapes = [`' `, ` '`, `. `, ` .`, `: `, ` :`, `''`, `..`, `:'`, `':`, `.:`, `:.`]; //? 
+
+document.body.style.backgroundSize = (256 * 4) + 'px';
+ctx.strokeStyle = '#000';
+ctx.lineWidth = 1 * scale;
+if (!full) canvas.style.opacity = 1;
+
+readUrl();
+
+function updateUrl() {
+  const query = new URLSearchParams();
+	query.set('speed', speedInput.value);
+  query.set('shapes', input.value);
+  window.history.replaceState(null, "", `?${query.toString()}`);
+}
+
+function readUrl() {
+  const query = new URLSearchParams(location.search);
+  for (let [key, value] of query.entries()) {
+  	if (key === 'speed') {
+      speedInput.value = value;
+    }
+    if (key === 'shapes') {
+      input.value = value;
+      shapes = value.split(',');
+    }
+  }
+}
+
+const incLine = () => {
+  const inc = 8 * scale;
+  line += inc;
+  if (line < height) return;
+  // throw new Error('screen overflow');
+  
+  // when overflow - then
+  // capture all of screen except first line
+  // then paint into top, left;
+  const imageData = ctx.getImageData(0, inc, width, height - inc);
+  ctx.clearRect(0, 0, width, height);
+  ctx.putImageData(imageData, 0, 0);
+  line = height - inc;
+  col = 0;
+}
+
+const incCol = () => {
+  col += (8 * scale);
+  if (col < width) return;
+  col = 0;
+  incLine();
+}
+
+const draw = {
+  one() {
+    ctx.putImageData(dot, col, line);
+  },
+  
+  two() {
+    ctx.putImageData(dot, col + dotOffset, line);
+  },
+  
+  three() {
+    ctx.putImageData(dot, col, line + dotOffset);
+  },
+
+  four() {
+    ctx.putImageData(dot, col + dotOffset, line + dotOffset);
+  },
+  
+  box(exclude = 0x0) {
+    exclude & ONE   || draw.one();
+    exclude & TWO   || draw.two();
+    exclude & THREE || draw.three();
+    exclude & FOUR  || draw.four();
+  },
+  
+  shape(s) {
+    const points = s.padEnd(2, ' ').split('');
+
+    const include = points.reduce((acc, curr, i) => {
+      if (curr === ':') {
+        if (i === 0) {
+          acc += ONE + THREE;
+        } else {
+          acc += TWO + FOUR;
+        }
+      }
+
+      if (curr === '.') {
+        if (i === 0) {
+          acc += THREE;
+        } else {
+          acc += FOUR;
+        }
+      }
+
+      if (curr === "'") {
+        if (i === 0) {
+          acc += ONE;
+        } else {
+          acc += TWO;
+        }
+      }
+
+      return acc;
+    }, 0); // ?
+
+    draw.box(0xF - include);
+  },
+}
+
+const dot = (() => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = dotOffset;
+  canvas.height = dotOffset;
+  ctx.fillRect(0, 0, dotOffset, dotOffset);
+  return ctx.getImageData(0, 0, dotOffset, dotOffset);
+})();
+
+const wait = n => new Promise(resolve => setTimeout(resolve, n));
+
+const write = c => {
+  incCol();
+  draw.shape(c);
+}
+
+async function main() {  
+  return new Promise(resolve => {
+    const bit = 8 * scale;
+    let todo = (width * height) / bit / bit;
+    const pop = () => {
+      if (full) document.body.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+      if (todo) {
+        for (let i = 0; i < 32; i++) {
+          // write(shapes[Math.random() * shapes.length | 0]);
+          j += 1;
+          write(shapes[(j) % shapes.length]);
+		      todo--;
+        }
+        requestAnimationFrame(pop);
+        pop();
+      } else {
+        resolve();
+      }
+    }
+
+    pop();
+    
+  });  
+}
+
+let direction = 1;
+
+async function bigSleep() {
+  let f = 0;
+  // noprotect
+  while (true) {
+    await main();
+    await wait(speed);
+    f++;
+    // j += (f % 2) + 1;
+    // ctx.clearRect(0, 0, width, height);
+    // line = 0;
+    // col = -8;
+    // j++;
+    j += direction;
+  }
+}
+
+document.body.onmousemove = event => {
+  if (!last.x) {
+    last.x = event.pageX;
+  	last.y = event.pageY;
+    return;
+  }
+  
+  if (event.pageY < window.innerHeight / 2) {
+    direction = -2;
+  } else {
+    direction = 2;
+  }
+}
+
+bigSleep();
+
+// single version
+// main();
+
+// input.value = shapes;
+input.oninput = event => {
+  shapes = input.value.split(',');
+  if (!shapes.includes(' ')) {
+    shapes.push(' ');
+    shapes.push(' ');
+  }
+  updateUrl();
+}
+
+speedInput.oninput = () => {
+  const x = parseInt(speedInput.value, 10) / 100; // 0 - 1
+  speed = Math.exp(0 - x * 5);
+  speed = speed * 1000 | 0;
+  speedOutput.innerHTML = (speed).toString().padStart(3, '0');
+  updateUrl();
+}
+
+speedInput.oninput();
+</script>
+</body>
+</html>
