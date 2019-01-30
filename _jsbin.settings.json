@@ -1,5 +1,4 @@
 {
-  "app.baseUrl": "https://remy.jsbin.me",
   "app.splitColumns": true,
   "editor.lineWrapping": true,
   "editor.keyMap": "sublime",
