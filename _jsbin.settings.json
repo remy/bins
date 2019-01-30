@@ -1,0 +1,10 @@
+{
+  "baseUrl": "https://remy-bins.netlify.com",
+  
+  // "app.theme": "dark"
+  "editor.lineWrapping": true,
+  "editor.keyMap": "sublime",
+  "editor.fontFamily": "'Ubuntu mono'",
+  "editor.fontSize": 16,
+  "app.splitColumns": true
+}
