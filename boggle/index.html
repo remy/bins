@@ -253,6 +253,8 @@ document.querySelector('#start-from-seed').onclick = () => {
   seed = parseInt(document.querySelector('#seed').value);
   init();
 }
+
+navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
