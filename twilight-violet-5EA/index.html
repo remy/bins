@@ -26,12 +26,12 @@ body {
   flex: 1;
 }
 
-body[data-game-state="running"] {
-  background: green;
+body.game-running {
+  background: #F1F8E9;
 }
 
-body[data-game-state="over"] {
-  background: red;
+body.game-over {
+  background: rgb(244, 67, 54);
 }
 
 #game-status {
@@ -40,7 +40,7 @@ body[data-game-state="over"] {
 }
 
 button {
-  background: #00aeff;
+  background: rgb(33, 150, 243);
   color: white;
   border: 0;
   border-radius: 2px;
@@ -50,19 +50,18 @@ button {
 }
 
 #grid {
-  border: 3px solid black;
+  border: 3px solid rgb(232, 148, 90);
   border-radius: 3px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-column-gap: 8px;
-  grid-row-gap: 8px;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 8px;
   
   justify-content: center;
   align-items: center;
-/*   grid-auto-flow: row; */
   padding: 10px;
   max-width: 600px;
+/*   max-height: 500px; */
   margin: 0 auto;
   background: #efb085;
 }
@@ -70,11 +69,13 @@ button {
 #grid div {
   background: white;
   text-align: center;
-  font-size: 8vw;
-  line-height: 18vw;
-  border: 4px solid #e8945a;
+  font-size: 12vw;
+  line-height: calc(18vw + 8px);
+/*   border: 4px solid transparent; */
   border-radius: 8px;
   font-weight: bold;
+  box-shadow: inset 0 5px white, inset 0 -5px #bbb, inset 5px 0 #d7d7d7, inset -5px 0 #d7d7d7;
+  background: #efefef;
 }
 </style>
 </head>
@@ -85,7 +86,9 @@ button {
     </button>
   </div>
 	<div id="grid"></div>
-<!--boot js--><script id="jsbin-javascript" defer>let currentDice = null;
+<!--boot js--><script id="jsbin-javascript" defer>const body = document.body;
+
+let currentDice = null;
 let grid = null;
 const length = 4 * 4;
 const dice = [
@@ -128,6 +131,7 @@ function init() {
   const root = document.querySelector('#grid');
   
   root.innerHTML = letters.map(l => `<div>${l}</div>`).join('');
+  body.className = 'game-running';
 }
 
 document.querySelector('button').onclick = () => {
