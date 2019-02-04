@@ -53,7 +53,6 @@ body.game-running #timer {
   display: block;
 }
 
-
 #timer {
   display: none;
   color: #c37b49;
@@ -121,14 +120,24 @@ button {
 
 #seed {
   display: block;
-  margin: 20px auto;
+  margin: 20px 0;
   font-size: 4vw;
-  width: 200px;
+  width: 25%;
   background: rgba(255,255,255,.3);
   border: 0;
   text-align: center;
   color: white;
 }
+
+#meta button {
+  margin: 20px 0 20px 10px;
+}
+
+#meta {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -141,7 +150,7 @@ button {
 	<div id="grid"></div>
   <div id="meta">
     <input type="number" id="seed">
-    <button>
+    <button id="start-from-seed">
     Start from seed
     </button>
   </div>
@@ -183,7 +192,7 @@ function tick() {
     return;
   }
   time--;
-  setTimeout(tick, 10);
+  setTimeout(tick, 1000);
 }
 
 function init() {
@@ -216,8 +225,13 @@ function random() {
   return x - Math.floor(x);
 }
 
-document.querySelector('button').onclick = () => {
+document.querySelector('#start').onclick = () => {
 	init();
+}
+
+document.querySelector('#start-from-seed').onclick = () => {
+  seed = parseInt(document.querySelector('#seed').value);
+  init();
 }
 
 init();
