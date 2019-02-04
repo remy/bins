@@ -30,8 +30,37 @@ body.game-running {
   background: #efb085;
 }
 
+body.game-running button {
+  display:none;
+}
+
 body.game-over {
   background: rgb(244, 67, 54);
+  animation: gameover 500ms;
+  animation-iteration-count: 3;
+}
+
+@keyframes gameover {
+  0%   {background: #cc1717;}
+  25%  {background: rgb(244, 67, 54);}
+  50%  {background: #cc1717;}
+  75%  {background: rgb(244, 67, 54);}
+  100% {background: #cc1717;}
+}
+
+
+body.game-running #timer {
+  display: block;
+}
+
+
+#timer {
+  display: none;
+  color: #c37b49;
+  text-align: center;
+  font-size: 12vw;
+  padding: 0 0;
+  margin: 24px auto;
 }
 
 #game-status {
@@ -43,16 +72,29 @@ button {
   background: rgb(33, 150, 243);
   color: white;
   border: 0;
-  border-radius: 8px;
-  padding: 12px 0;
-  font-size: 8vw;
+  border-radius: 2px;
+  padding: 4px 8px;
   cursor: pointer;
+  margin: 20px auto;
+  display: block;
+}
+
+#start {
+  border-radius: 8px;
+  font-size: 8vw;
+  padding: 12px 36px;
   margin: 20px 20vw;
 }
 
+#grid:empty:before {
+  content: 'Ready to play?';
+  grid-column: span 4;
+  grid-row: span 4;
+  text-align: center;
+  font-size: 8vw;
+}
+
 #grid {
-/*   border: 3px solid rgb(232, 148, 90); */
-/*   border-radius: 3px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -60,11 +102,9 @@ button {
   
   justify-content: center;
   align-items: center;
-/*   padding: 10px; */
   max-width: 600px;
-/*   max-height: 500px; */
+  min-height: 500px;
   margin: 0 auto;
-  background: #efb085;
 }
 
 #grid div {
@@ -78,17 +118,36 @@ button {
   box-shadow: inset 0 5px white, inset 0 -5px #bbb, inset 5px 0 #d7d7d7, inset -5px 0 #d7d7d7;
   background: #efefef;
 }
+
+#seed {
+  display: block;
+  margin: 20px auto;
+  font-size: 4vw;
+  width: 200px;
+  background: rgba(255,255,255,.3);
+  border: 0;
+  text-align: center;
+  color: white;
+}
 </style>
 </head>
 <body>
   <div id="game-status">
-   <button>
+   <button id="start">
      Start
     </button>
+    <span id="timer">0:00</span>
   </div>
 	<div id="grid"></div>
+  <div id="meta">
+    <input type="number" id="seed">
+    <button>
+    Start from seed
+    </button>
+  </div>
 <!--boot js--><script id="jsbin-javascript" defer>const body = document.body;
-
+const timer = document.querySelector('#timer');
+let time = 0;
 let currentDice = null;
 let grid = null;
 const length = 4 * 4;
@@ -112,13 +171,26 @@ const dice = [
 ];
 
 function roll() {
-  return (Math.random() * 6) | 0;
+  return (random() * 6) | 0;
+}
+
+function tick() {
+  const m = time / 60 | 0;
+  const s = (time % 60).toString().padStart(2, '0');
+  timer.innerText = `${m}:${s}`;
+  if (time === 0) {
+    body.className = 'game-over';
+    return;
+  }
+  time--;
+  setTimeout(tick, 10);
 }
 
 function init() {
+  document.querySelector('#seed').value = seed;
   currentDice = 0;
   const order = Array.from({ length }, (_, i) => i).sort(() =>
-    Math.random() < 0.5 ? -1 : 1
+    random() < 0.5 ? -1 : 1
   );
 
   const letters = order.map(i => {
@@ -133,13 +205,22 @@ function init() {
   
   root.innerHTML = letters.map(l => `<div>${l}</div>`).join('');
   body.className = 'game-running';
+  time = 3 * 60;
+  // seed = 1;
+  tick();
+}
+
+var seed = 1;
+function random() {
+  var x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
 }
 
 document.querySelector('button').onclick = () => {
 	init();
 }
 
-
+init();
 </script>
 </body>
 </html>
