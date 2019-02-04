@@ -110,7 +110,7 @@ button {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-gap: 8px;
-  
+
   justify-content: center;
   align-items: center;
   max-width: 600px;
@@ -213,7 +213,7 @@ function tick() {
     return;
   }
   time--;
-  setTimeout(tick, 10);
+  setTimeout(tick, 1000);
 }
 
 function init() {
@@ -230,9 +230,9 @@ function init() {
     }
     return letter.toUpperCase();
   }); // ?
-  
+
   const root = document.querySelector('#grid');
-  
+
   root.innerHTML = letters.map(l => `<div>${l}</div>`).join('');
   body.className = 'game-running';
   time = 3 * 60;
