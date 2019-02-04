@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+#grid {
+  border: 3px solid black;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 20vw 20vw 20vw 20vw;
+  
+  grid-column-gap: 10px;
+  grid-row-gap: 15px;
+  
+  justify-content: center;
+  align-items: center;
+  grid-auto-flow: row;
+}
+
+#grid div {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 7rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<div id="grid">
+  	
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>let currentDice = null;
+let grid = null;
+const length = 4 * 4;
+const dice = [
+  'ryveld',
+  'rwthev',
+  'uieesn',
+  'nrlzhn',
+  'stoesi',
+  'ydstit',
+  'tootwa',
+  'paskff',
+  'abjboo',
+  'neegaa',
+  'etrlty',
+  'qhmnui',
+  'dxlrei',
+  'ucimto',
+  'sapohc',
+  'gwheen',
+];
+
+function roll() {
+  return (Math.random() * 6) | 0;
+}
+
+function init() {
+  currentDice = 0;
+  const order = Array.from({ length }, (_, i) => i).sort(() =>
+    Math.random() < 0.5 ? -1 : 1
+  );
+
+  const letters = order.map(i => {
+    const letter = dice[i][roll()];
+    if (letter === 'q') {
+      return 'Qu';
+    }
+    return letter.toUpperCase();
+  }); // ?
+  
+  const root = document.querySelector('#grid');
+  
+  root.innerHTML = letters.map(l => `<div>${l}</div>`).join('');
+}
+
+init();
+
+</script>
+</body>
+</html>
