@@ -1,13 +1,18 @@
 // we'll version our cache (and learn how to delete caches in
 // some other post)
-const cacheName = 'v2';
+const cacheName = 'v3';
 
 self.addEventListener('install', e => {
   // once the SW is installed, go ahead and fetch the resources
   // to make this work offline
   e.waitUntil(
     caches.open(cacheName).then(cache => {
-      return cache.addAll(['/boggle/']).then(() => self.skipWaiting());
+      return cache
+        .addAll([
+          '/boggle/',
+          'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:700',
+        ])
+        .then(() => self.skipWaiting());
     })
   );
 });
