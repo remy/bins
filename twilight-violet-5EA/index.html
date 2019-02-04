@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
+  <title>Boggle</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:700" rel="stylesheet">
 <style id="jsbin-css">
 * {
   box-sizing: border-box;
+	font-family: 'IBM Plex Mono', monospace;
 }
 
 html {
@@ -24,14 +26,37 @@ body {
   flex: 1;
 }
 
+body[data-game-state="running"] {
+  background: green;
+}
+
+body[data-game-state="over"] {
+  background: red;
+}
+
+#game-status {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background: #00aeff;
+  color: white;
+  border: 0;
+  border-radius: 2px;
+  font-size: 8vw;
+  cursor: pointer;
+  margin: 10px 20vw;
+}
+
 #grid {
   border: 3px solid black;
   border-radius: 3px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  grid-column-gap: 15px;
-  grid-row-gap: 15px;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
   
   justify-content: center;
   align-items: center;
@@ -47,17 +72,19 @@ body {
   text-align: center;
   font-size: 8vw;
   line-height: 18vw;
-  border: 2px solid #e8945a;
+  border: 4px solid #e8945a;
   border-radius: 8px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: bold;
 }
 </style>
 </head>
 <body>
-	<div id="grid">
-  	
+  <div id="game-status">
+   <button>
+     Start
+    </button>
   </div>
+	<div id="grid"></div>
 <!--boot js--><script id="jsbin-javascript" defer>let currentDice = null;
 let grid = null;
 const length = 4 * 4;
@@ -103,7 +130,10 @@ function init() {
   root.innerHTML = letters.map(l => `<div>${l}</div>`).join('');
 }
 
-init();
+document.querySelector('button').onclick = () => {
+	init();
+}
+
 
 </script>
 </body>
