@@ -12,7 +12,7 @@
 }
 
 html {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -57,7 +57,11 @@ button {
   display: none;
 }
 
-button.game-over {
+.game-over button {
+  display: block;
+}
+
+.start-game button, .start-game #seed {
   display: block;
 }
 
@@ -86,7 +90,7 @@ button {
 }
 
 #start {
-  display: block;
+/*   display: block; */
   border-radius: 8px;
   font-size: 8vw;
   padding: 12px 36px;
@@ -131,10 +135,10 @@ button {
   margin: 20px 0;
   font-size: 4vw;
   width: 25%;
+  border: 2px solid rgba(0,0,0,.3);
   background: rgba(255,255,255,.3);
-  border: 0;
   text-align: center;
-  color: white;
+  color: rgba(0,0,0,.5);
 }
 
 #meta button {
@@ -145,9 +149,13 @@ button {
   display: flex;
   justify-content: center;
 }
+
+.help {
+  color: white;
+}
 </style>
 </head>
-<body>
+<body class="start-game">
   <div id="game-status">
    <button id="start">
      Start
@@ -160,6 +168,12 @@ button {
     <button id="start-from-seed">
     Start from seed
     </button>
+  </div>
+  <div class="help">
+    <p>
+      Letters:&nbsp;3 4 5 6 7 8 or more<br>
+      Points:&nbsp;&nbsp;1 1 2 4 5 11
+    </p>
   </div>
 <!--boot js--><script id="jsbin-javascript" defer>const body = document.body;
 const timer = document.querySelector('#timer');
@@ -199,7 +213,7 @@ function tick() {
     return;
   }
   time--;
-  setTimeout(tick, 1000);
+  setTimeout(tick, 10);
 }
 
 function init() {
@@ -227,14 +241,13 @@ function init() {
 }
 
 var seed = Math.random() * 10000 | 0 + 1;
+document.querySelector('#seed').value = seed;
 function random() {
   var x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }
 
-document.querySelector('#start').onclick = () => {
-	init();
-}
+document.querySelector('#start').onclick = init;
 
 document.querySelector('#start-from-seed').onclick = () => {
   seed = parseInt(document.querySelector('#seed').value);
