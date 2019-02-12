@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Scale text</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+canvas {
+  background: #ccc;
+  image-rendering: pixelated;
+}
+
+_canvas {
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -o-crisp-edges;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+</style>
+</head>
+<body>
+<canvas></canvas>
+<!--boot js--><script id="jsbin-javascript" defer>const ctx = document.querySelector('canvas').getContext('2d');
+ctx.canvas.width = 200;
+ctx.canvas.height = 200;
+
+ctx.scale(.5,.5);
+//ctx.translate(0.5, 0.5);
+ctx.textBaseline = "top";
+ctx.imageSmoothingEnabled = false;
+ctx.font = "12pt Helvetica";
+ctx.fillText('W', 0, 0);
+
+const width = ctx.measureText('W');
+
+const data = ctx.getImageData(0, 0, width.width, 12);
+
+toImage(data);
+
+function toImage(imageData) {
+  const c = document.createElement('canvas').getContext('2d');
+  const s = 5;
+  const target = c.getImageData(0, 0, imageData.width * s, imageData.height * s);
+  scale(0, s, imageData, target);
+  c.putImageData(target, 0, 0);
+  
+  const i = new Image();
+  i.src = c.canvas.toDataURL();
+  document.body.appendChild(i);
+}
+
+function scale(i, s, source, target) {
+  var width = source.width,
+      row = i / width | 0,
+      base = width * s * s * row,
+      j = i % width,
+      targetI = null;
+
+  for (var x = 0; x < s; x++) {
+    for (var y = 0; y < s; y++) {
+      targetI = base + j * s + x + (width * s * y);
+      
+      for (var k = 0; k < 4; k++) {
+        target.data[(targetI*4)+k] = source.data[(i*4)+k];
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>
