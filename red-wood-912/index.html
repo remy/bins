@@ -17,6 +17,13 @@ h1 {
   font-size: 26px;
 }
 
+img {
+  transform: scale(20);
+  transform-origin: 0 0;
+  margin: 0 auto;
+  display: block;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -45,6 +52,7 @@ pre:after {
     <h1>The teeniest colour gif</h1>
     <div>
       <pre></pre>      
+      <a target="_blank"><img title="click to download"></a>
     </div>
     <div>
       <div class="colorPicker"></div>
@@ -70,10 +78,11 @@ function update(hex) {
   const rgb = hex.match(/([a-f0-9]{2})/gi);
   const string = pixel(rgb).split(' ').filter(Boolean).map(_ => parseInt(_.trim(), 16));
   
-  const bytes = Uint8Array.from(string);
   const dataurl = `data:image/gif;base64,${btoa(String.fromCharCode(...string))}`;
   
-	// img.src = dataurl;
+	img.src = dataurl;
+  img.parentNode.href = dataurl;
+  img.parentNode.download = `1x1-${hex.substring(1)}.gif`
   output.innerHTML = dataurl;
 }
 
@@ -81,7 +90,7 @@ colorPicker.on('color:change', colour => {
   update(colour.hexString);
 });
 
-update(colorPicker.color.hexString)
+update(colorPicker.color.hexString);
 </script>
 </body>
 </html>
