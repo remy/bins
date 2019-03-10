@@ -6,12 +6,18 @@
   <title>Palm Portlet</title>
 <style id="jsbin-css">
 * {
-  background: #ccc;
+  background: #7b8b5c
+}
+
+img {
+/*   display: none; */
+  image-rendering: pixelated;
 }
 
 canvas {
+  image-rendering: pixelated;
   display: block;
-  border: 2px solid black;
+  border: 0px solid black;
   background: #7b8b5c;
   margin: 40px auto;
   transform: scale(3);
@@ -21,20 +27,43 @@ canvas {
 </head>
 <body>
 <canvas></canvas>
-<!--boot js--><script id="jsbin-javascript" defer>const ctx = document.querySelector('canvas').getContext('2d');
+  <img id="one" src="https://remy.jsbin.me/marbles2/one.gif">
+  <img id="two" src="https://remy.jsbin.me/marbles2/two.gif">
+  <img id="three" src="https://remy.jsbin.me/marbles2/three.gif">
+  <img id="four" src="https://remy.jsbin.me/marbles2/four.gif">
+<!--boot js--><script id="jsbin-javascript" defer>
+window.onload = () => {
+const ctx = document.querySelector('canvas').getContext('2d');
 
+  const size = 16;
+  
 ctx.canvas.width = ctx.canvas.height = 160;
 
-const genMarble = () => {
+function genMarble(name) {
+  const img = document.querySelector('#' + name);
   const ctx = document.createElement('canvas').getContext('2d');
-  ctx.canvas.width = ctx.canvas.height = 15;
+  ctx.canvas.width = ctx.canvas.height = size;
+  ctx.drawImage(img, 1, 1);
   return ctx;
 }
 
-const one = () => {
-  const m = genMarble();
+function mask(x, y) {
   
+}
+
+const marbles = [genMarble('one'),
+genMarble('two'),
+genMarble('three'),
+genMarble('four'),]
+
+	const rnd = () => Math.random() * marbles.length | 0;
+
   
+  for (var x = 0; x < 10; x++) {
+    for (var y = 0; y < 10; y++) {
+			ctx.drawImage(marbles[rnd()].canvas, x * size, y * size);
+    }
+  }
 }
 </script>
 </body>
