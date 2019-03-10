@@ -39,6 +39,17 @@ pre {
 [hidden] {
   display: none;
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
 </style>
 </head>
 <body>
@@ -49,7 +60,7 @@ pre {
   <img id="four" src="data:image/gif;base64,R0lGODlhDwAPAJEAAHuLXAgICGt6TFJaPCH5BAAAAAAALAAAAAAPAA8AAAInjI8ZI+0vhhGg2gvExFwHyl0eGFZjaZ1otq0q+pZxOHcGA0GSwhsFADs=">
   <img id="empty" src="data:image/gif;base64,R0lGODlhDwAPAIAAAHuLXAAAACH5BAAAAAAALAAAAAAPAA8AAAINhI+py+0Po5y02otnAQA7">
   <img id="mask" src="data:image/gif;base64,R0lGODlhDwAPAIABAHuLXP///yH5BAEAAAEALAAAAAAPAA8AAAISRIynyesNn4x02oqvznz7Dn4FADs=">
-  <pre hidden>Info</pre>
+  <pre hidden>…</pre>
 <script>
   const ctx = document.querySelector('canvas').getContext('2d');
 const size = 16;
@@ -60,7 +71,7 @@ const grid = Array.from({ length: length * length });
 
 const shortEdge = Math.min(window.innerWidth, window.innerHeight);
 
-const scale = ((shortEdge - 40) / 10 / 15) | 0;
+const scale = ((shortEdge) / 10 / 15) | 0;
 
 const marbles = [];
 const EMPTY = 16;
@@ -120,7 +131,7 @@ function getCoords(event) {
 }
 
 function log(args) {
-  document.querySelector('pre').innerHTML = JSON.stringify(args, 0, 2);
+  document.querySelector('pre').innerHTML = JSON.stringify(args);
 }
 
 function coordsToIndex({ x, y }) {
