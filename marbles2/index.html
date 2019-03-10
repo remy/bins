@@ -10,7 +10,7 @@
 }
 
 img {
-/*   display: none; */
+  display: none;
   image-rendering: pixelated;
 }
 
@@ -20,8 +20,16 @@ canvas {
   border: 0px solid black;
   background: #7b8b5c;
   margin: 40px auto;
-  transform: scale(3);
-  transform-origin: top;
+  /* transform: scale(3); */
+  /* transform-origin: top; */
+}
+
+pre {
+  /* margin-top: 42vh; */
+  font-size: 24px;
+  display: block;
+  z-index: -1;
+  user-select: none !important;
 }
 </style>
 </head>
@@ -31,40 +39,9 @@ canvas {
   <img id="two" src="https://remy.jsbin.me/marbles2/two.gif">
   <img id="three" src="https://remy.jsbin.me/marbles2/three.gif">
   <img id="four" src="https://remy.jsbin.me/marbles2/four.gif">
-<!--boot js--><script id="jsbin-javascript" defer>
-window.onload = () => {
-const ctx = document.querySelector('canvas').getContext('2d');
-
-  const size = 16;
-  
-ctx.canvas.width = ctx.canvas.height = 160;
-
-function genMarble(name) {
-  const img = document.querySelector('#' + name);
-  const ctx = document.createElement('canvas').getContext('2d');
-  ctx.canvas.width = ctx.canvas.height = size;
-  ctx.drawImage(img, 1, 1);
-  return ctx;
-}
-
-function mask(x, y) {
-  
-}
-
-const marbles = [genMarble('one'),
-genMarble('two'),
-genMarble('three'),
-genMarble('four'),]
-
-	const rnd = () => Math.random() * marbles.length | 0;
-
-  
-  for (var x = 0; x < 10; x++) {
-    for (var y = 0; y < 10; y++) {
-			ctx.drawImage(marbles[rnd()].canvas, x * size, y * size);
-    }
-  }
-}
-</script>
+  <img id="blank" src="https://remy.jsbin.me/marbles2/blank.gif">
+  <img id="mask" src="https://remy.jsbin.me/marbles2/mask.gif">
+  <pre>Info</pre>
+  <script src="app.js"></script>
 </body>
 </html>
