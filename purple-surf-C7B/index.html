@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Palm Port</title>
+  <title>Palm Portlet</title>
 <style id="jsbin-css">
 * {
   background: #ccc;
@@ -12,9 +12,9 @@
 canvas {
   display: block;
   border: 2px solid black;
-  background: #94b29c;
+  background: #7b8b5c;
   margin: 40px auto;
-  transform: scale(2);
+  transform: scale(3);
   transform-origin: top;
 }
 </style>
@@ -23,7 +23,19 @@ canvas {
 <canvas></canvas>
 <!--boot js--><script id="jsbin-javascript" defer>const ctx = document.querySelector('canvas').getContext('2d');
 
-ctx.canvas.width = ctx.canvas.height = 320;
+ctx.canvas.width = ctx.canvas.height = 160;
+
+const genMarble = () => {
+  const ctx = document.createElement('canvas').getContext('2d');
+  ctx.canvas.width = ctx.canvas.height = 15;
+  return ctx;
+}
+
+const one = () => {
+  const m = genMarble();
+  
+  
+}
 </script>
 </body>
 </html>
