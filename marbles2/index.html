@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width">
   <title>Palm Portlet</title>
 <style id="jsbin-css">
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
 * {
   background: #7b8b5c
 }
@@ -19,7 +23,7 @@ canvas {
   display: block;
   border: 0px solid black;
   background: #7b8b5c;
-  margin: 40px auto;
+  margin: 0 auto;
   /* transform: scale(3); */
   /* transform-origin: top; */
 }
@@ -31,17 +35,21 @@ pre {
   z-index: -1;
   user-select: none !important;
 }
+
+[hidden] {
+  display: none;
+}
 </style>
 </head>
 <body>
 <canvas></canvas>
-  <img id="one" src="https://remy.jsbin.me/marbles2/one.gif">
-  <img id="two" src="https://remy.jsbin.me/marbles2/two.gif">
-  <img id="three" src="https://remy.jsbin.me/marbles2/three.gif">
-  <img id="four" src="https://remy.jsbin.me/marbles2/four.gif">
-  <img id="blank" src="https://remy.jsbin.me/marbles2/blank.gif">
-  <img id="mask" src="https://remy.jsbin.me/marbles2/mask.gif">
-  <pre>Info</pre>
-  <script src="app.js"></script>
+  <img id="one" src="data:image/gif;base64,R0lGODlhDwAPAKIAAFJaPAgICGt6THuLXENLMwAAAAAAAAAAACH5BAAAAAAALAAAAAAPAA8AAAM5GLrcASLKKYCqIOst7gbE1wVYRgyhNpbngKoe6M7pKs80FLe5Tmq8lK8kEw4/xuNHpIBQKBaHVJEAADs=">
+  <img id="two" src="data:image/gif;base64,R0lGODlhDwAPAKIAADpCKggICGt6THuLXFJaPAAAAAAAAAAAACH5BAAAAAAALAAAAAAPAA8AAAM1GLrcQSLKKYgSIOsNxOUD5wWYFobaWAIom37uhqox2MFtNsN1S5u1G8m2+XGKCgiFYnE4FQkAOw==">
+  <img id="three" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAgICGt6TFJaPAAAACH5BAAAAAAALAAAAAAPAA8AAAIihI8JEu0fhAkqUXDr3JpnfX1V2HklxnVkuaopaDAQJJ1IAQA7">
+  <img id="four" src="data:image/gif;base64,R0lGODlhDwAPAJEAAHuLXAgICGt6TFJaPCH5BAAAAAAALAAAAAAPAA8AAAInjI8ZI+0vhhGg2gvExFwHyl0eGFZjaZ1otq0q+pZxOHcGA0GSwhsFADs=">
+  <img id="empty" src="data:image/gif;base64,R0lGODlhDwAPAIAAAHuLXAAAACH5BAAAAAAALAAAAAAPAA8AAAINhI+py+0Po5y02otnAQA7">
+  <img id="mask" src="data:image/gif;base64,R0lGODlhDwAPAIABAHuLXP///yH5BAEAAAEALAAAAAAPAA8AAAISRIynyesNn4x02oqvznz7Dn4FADs=">
+  <pre hidden>Info</pre>
+  <script async defer src="app.js"></script>
 </body>
 </html>
