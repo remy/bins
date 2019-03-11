@@ -97,7 +97,7 @@ function genMarble(name) {
   ctx.canvas.width = ctx.canvas.height = size * scale;
   ctx.imageSmoothingEnabled = false;
   ctx.scale(scale, scale);
-  ctx.drawImage(img, 1, 1);
+  ctx.drawImage(img, 0, 0);
   return ctx;
 }
 
