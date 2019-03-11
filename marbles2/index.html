@@ -5,12 +5,38 @@
   <meta name="viewport" content="width=device-width">
   <title>Palm Portlet</title>
 <style id="jsbin-css">
+/* @font-face {
+	font-family: 'palm-os-bold';
+	src: local('☺'), url('fonts/palm-os-bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'palm-os-large';
+	src: local('☺'), url('fonts/palm-os-large.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+} */
+
+@font-face {
+	font-family: 'palm-os';
+	src: local('☺'), url('fonts/palm-os.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
   body, html {
+    font-family: 'palm-os';
+    font-size: 11px;
     margin: 0;
     padding: 0;
   }
+
 * {
-  background: #7b8b5c
+  background: #7b8b5c;
+  font-family: 'palm-os';
 }
 
 img {
@@ -24,20 +50,22 @@ canvas {
   border: 0px solid black;
   background: #7b8b5c;
   margin: 0 auto;
+  width: 100%;
   /* transform: scale(3); */
   /* transform-origin: top; */
+  object-fit: contain;
 }
 
 pre {
   /* margin-top: 42vh; */
   font-size: 24px;
   display: block;
-  z-index: -1;
+  /* z-index: -1; */
   user-select: none !important;
 }
 
 [hidden] {
-  display: none;
+  /* display: none; */
 }
 
 html, body {
@@ -49,6 +77,7 @@ body {
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  flex-direction: column;
 }
 </style>
 </head>
@@ -67,12 +96,11 @@ const size = 16;
 const marbleCount = 4;
 const length = 10;
 const grid = Array.from({ length: length * length });
-// const scale = 3;
 
 const shortEdge = Math.min(window.innerWidth, window.innerHeight);
 
 // const scale = ((shortEdge) / 10 / 15) | 0;
-const scale = Math.round((shortEdge / (160 + 16)) * 2) / 2
+const scale = ctx.canvas.offsetWidth / 160; //1 ;//Math.round((shortEdge / (160 + 16)) * 2) / 2
 
 
 const marbles = [];
@@ -88,16 +116,16 @@ const gameState = {
 };
 let last = null;
 ctx.imageSmoothingEnabled = false;
-ctx.scale(scale, scale);
-ctx.canvas.width = ctx.canvas.height = 160 * scale;
+// ctx.scale(scale, scale);
+ctx.canvas.width = ctx.canvas.height = 160; // * scale;
 
 function genMarble(name) {
   const img = document.querySelector('#' + name);
   const ctx = document.createElement('canvas').getContext('2d');
-  ctx.canvas.width = ctx.canvas.height = size * scale;
+  ctx.canvas.width = ctx.canvas.height = size; // * scale;
   ctx.imageSmoothingEnabled = false;
-  ctx.scale(scale, scale);
-  ctx.drawImage(img, 0, 0);
+  // ctx.scale(scale, scale);
+  ctx.drawImage(img, 1, 1);
   return ctx;
 }
 
@@ -187,11 +215,10 @@ function handleClick(event) {
   gameState.blocked = false;
 
   log({
-    tagged: gameState.tagged.length,
+    // tagged: gameState.tagged.length,
     potential: gameState.tagged.length * (5 + gameState.tagged.length),
     score: gameState.score,
     canMove: canMove(),
-    hasWon: hasWon(),
   });
 }
 
@@ -358,6 +385,7 @@ function tag({ x, y, match, res = [] }) {
 function draw({ x, y }) {
   const i = coordsToIndex({ x, y });
   const state = grid[i];
+  const scale = 1;
   if (state & EMPTY) {
     ctx.drawImage(marbles[EMPTY].canvas, x * size * scale, y * size * scale);
   } else {
@@ -409,7 +437,7 @@ function main() {
 // window.onload = main;
 main();
 
-navigator.serviceWorker.register('/sw.js');
+navigator.serviceWorker.register('sw.js');
 
 </script>
 </body>
