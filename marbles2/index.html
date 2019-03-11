@@ -71,7 +71,9 @@ const grid = Array.from({ length: length * length });
 
 const shortEdge = Math.min(window.innerWidth, window.innerHeight);
 
-const scale = ((shortEdge) / 10 / 15) | 0;
+// const scale = ((shortEdge) / 10 / 15) | 0;
+const scale = Math.round((shortEdge / (160 + 16)) * 2) / 2
+
 
 const marbles = [];
 const EMPTY = 16;
