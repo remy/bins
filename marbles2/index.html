@@ -48,12 +48,21 @@ canvas {
   image-rendering: pixelated;
   display: block;
   border: 0px solid black;
-  background: #7b8b5c;
   margin: 0 auto;
   width: 100%;
-  /* transform: scale(3); */
-  /* transform-origin: top; */
   object-fit: contain;
+}
+
+#grid {
+  background: #7b8b5c;
+  /* display: none; */
+}
+
+#text {
+  position: absolute;
+  background: none;
+  top: 0;
+  /* background: red; */
 }
 
 pre {
@@ -79,10 +88,16 @@ body {
   height: 100%;
   flex-direction: column;
 }
+
+#text {
+  pointer-events: none;
+  position: absolute;
+}
 </style>
 </head>
 <body>
-<canvas></canvas>
+<canvas id="grid"></canvas>
+<canvas id="text"></canvas>
   <img id="one" src="data:image/gif;base64,R0lGODlhDwAPAKIAAFJaPAgICGt6THuLXENLMwAAAAAAAAAAACH5BAAAAAAALAAAAAAPAA8AAAM5GLrcASLKKYCqIOst7gbE1wVYRgyhNpbngKoe6M7pKs80FLe5Tmq8lK8kEw4/xuNHpIBQKBaHVJEAADs=">
   <img id="two" src="data:image/gif;base64,R0lGODlhDwAPAKIAADpCKggICGt6THuLXFJaPAAAAAAAAAAAACH5BAAAAAAALAAAAAAPAA8AAAM1GLrcQSLKKYgSIOsNxOUD5wWYFobaWAIom37uhqox2MFtNsN1S5u1G8m2+XGKCgiFYnE4FQkAOw==">
   <img id="three" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAgICGt6TFJaPAAAACH5BAAAAAAALAAAAAAPAA8AAAIihI8JEu0fhAkqUXDr3JpnfX1V2HklxnVkuaopaDAQJJ1IAQA7">
@@ -91,16 +106,14 @@ body {
   <img id="mask" src="data:image/gif;base64,R0lGODlhDwAPAIABAHuLXP///yH5BAEAAAEALAAAAAAPAA8AAAISRIynyesNn4x02oqvznz7Dn4FADs=">
   <pre hidden>…</pre>
 <script>
-  const ctx = document.querySelector('canvas').getContext('2d');
+const ctx = document.querySelector('#grid').getContext('2d', { alpha: false});
+const ctxText = document.querySelector('#text').getContext('2d', { alpha: true});
 const size = 16;
 const marbleCount = 4;
 const length = 10;
 const grid = Array.from({ length: length * length });
 
-const shortEdge = Math.min(window.innerWidth, window.innerHeight);
-
-// const scale = ((shortEdge) / 10 / 15) | 0;
-const scale = ctx.canvas.offsetWidth / 160; //1 ;//Math.round((shortEdge / (160 + 16)) * 2) / 2
+const scale = ctx.canvas.offsetWidth / 160;
 
 
 const marbles = [];
@@ -115,16 +128,18 @@ const gameState = {
   seed: '00000001',
 };
 let last = null;
+ctxText.canvas.width = ctxText.canvas.height = ctx.canvas.width = ctx.canvas.height = 160;
+ctxText.imageSmoothingEnabled = false;
 ctx.imageSmoothingEnabled = false;
-// ctx.scale(scale, scale);
-ctx.canvas.width = ctx.canvas.height = 160; // * scale;
+ctx.fillStyle = '#7b8b5c';
+ctx.fillRect(0, 0, 160, 160);
+
 
 function genMarble(name) {
   const img = document.querySelector('#' + name);
-  const ctx = document.createElement('canvas').getContext('2d');
-  ctx.canvas.width = ctx.canvas.height = size; // * scale;
+  const ctx = document.createElement('canvas').getContext('2d', { antialias: false});
+  ctx.canvas.width = ctx.canvas.height = size;
   ctx.imageSmoothingEnabled = false;
-  // ctx.scale(scale, scale);
   ctx.drawImage(img, 1, 1);
   return ctx;
 }
@@ -161,7 +176,7 @@ function getCoords(event) {
 }
 
 function log(args) {
-  document.querySelector('pre').innerHTML = JSON.stringify(args);
+  document.querySelector('pre').innerHTML = args
 }
 
 function coordsToIndex({ x, y }) {
@@ -192,9 +207,8 @@ function handleClick(event) {
   const match = grid[i];
 
   if (gameState.tagged.length && !gameState.tagged.includes(i)) {
-    // un-tag and return
+    // un-tag
     toggleTaggedTo(MASK, true);
-    return;
   }
 
   gameState.blocked = true;
@@ -209,6 +223,7 @@ function handleClick(event) {
       gameState.tagged = [];
     } else {
       toggleTaggedTo(MASK);
+      frame('Possible: ' + gameState.tagged.length * (5 + gameState.tagged.length));
     }
   }
 
@@ -220,12 +235,39 @@ function handleClick(event) {
     score: gameState.score,
     canMove: canMove(),
   });
+
+  log('Possible: ' + gameState.tagged.length * (5 + gameState.tagged.length));
 }
 
 const sleep = n => new Promise(resolve => setTimeout(resolve, n));
 
 function hasWon() {
   return !!(grid[coordsToIndex({ x: 0, y: length - 1 })] & EMPTY);
+}
+
+// ctxText.translate(0.5, 0.5);
+function frame(text) {
+  return
+  ctxText.clearRect(0, 0, 160, 160);
+  ctxText.font = '16px "palm-os"';
+  const width = ctxText.measureText(text).width;
+  const x = ctxText.canvas.width - (width + 10);
+  const y = 24;
+  ctxText.fillStyle = '#7b8b5c';
+  ctxText.fillRect(x - 2, y - 11, width + 2, 14);
+  ctxText.strokeStyle =  ctxText.fillStyle = '#000';
+  ctxText.fillText(text, x, y);
+  ctxText.beginPath();
+  ctxText.moveTo(x - 2, .5 + y - 11);
+  ctxText.lineTo(x + width, .5 + y - 11);
+  ctxText.moveTo(x - 2, .5 + y - 11 + 14);
+  ctxText.lineTo(x + width + 1, .5 + y - 11 + 14);
+
+
+  ctxText.moveTo(x - 2, .5 + y - 10);
+  ctxText.lineTo(x -2, .5 + y - 11 + 14);
+  ctxText.closePath();
+  ctxText.stroke();
 }
 
 function canMove() {
@@ -385,15 +427,14 @@ function tag({ x, y, match, res = [] }) {
 function draw({ x, y }) {
   const i = coordsToIndex({ x, y });
   const state = grid[i];
-  const scale = 1;
   if (state & EMPTY) {
-    ctx.drawImage(marbles[EMPTY].canvas, x * size * scale, y * size * scale);
+    ctx.drawImage(marbles[EMPTY].canvas, x * size, y * size);
   } else {
     const marble = state & 0x0f;
-    ctx.drawImage(marbles[marble].canvas, x * size * scale, y * size * scale);
+    ctx.drawImage(marbles[marble].canvas, x * size, y * size);
 
     if (state & MASK) {
-      ctx.drawImage(marbles[MASK].canvas, x * size * scale, y * size * scale);
+      ctx.drawImage(marbles[MASK].canvas, x * size, y * size);
     }
   }
 }
@@ -432,7 +473,9 @@ function main() {
   ctx.canvas.onmousedown = handleClick;
 
   newGame();
+
 }
+window.onload = () => frame('Possible: 329');
 
 // window.onload = main;
 main();

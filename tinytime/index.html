@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: 'ubuntu mono', sans-serif;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+  <main id="app">
+  <p>
+    Time: <strong>{{ time }}</strong>
+  </p>
+  <div>
+    <p>
+      Quarter
+    </p>
+    <input v-model="quarter" value="1" id="q1" type="checkbox">
+    <input v-model="quarter" value="2" id="q2" type="checkbox">
+    
+    {{ q }}
+  </div>
+  <div>
+    <p>
+      Min
+    </p>
+    <input v-model="minute" value="1" id="m1" type="checkbox">
+    <input v-model="minute" value="2" id="m2" type="checkbox">
+    <input v-model="minute" value="4" id="m4" type="checkbox">
+    <input v-model="minute" value="8" id="m8" type="checkbox">
+    
+    {{ m }}
+  </div>
+    <div>
+  <p>
+      Hour
+    </p>
+    <input v-model="hour" value="1" id="h1" type="checkbox">
+    <input v-model="hour" value="2" id="h2" type="checkbox">
+    <input v-model="hour" value="4" id="h4" type="checkbox">
+    <input v-model="hour" value="8" id="h8" type="checkbox">
+    
+    {{ h }}
+  </div>
+    </main>
+<!--boot js--><script id="jsbin-javascript" defer>var app = new Vue({
+  el: '#app',
+  data: {
+    hour: [],
+    quarter: [],
+    minute: [],
+    m: 0,
+    h: 0,
+    q: 0,
+  },
+  computed: {
+    time: function () {
+      const h = this.hour.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.h = h;
+      const q = 15 * this.quarter.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.q = q;
+      
+      const m = this.minute.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.m = m;
+      
+      return `${h}:${(q + m + '').padStart(2, '0')}`;
+    }
+  }
+});
+
+
+const now = new Date();
+const hour = now.getHours() % 12;
+if (hour & 1) app.hour.push(1);
+if (hour & 2) app.hour.push(2);
+if (hour & 4) app.hour.push(2);
+if (hour & 8) app.hour.push(2);
+
+const minutes = now.getMinutes(); 
+
+const q = (minutes / 15 | 0)
+if (q & 1) app.quarter.push(1);
+if (q & 2) app.quarter.push(2);
+
+const delta = minutes - (q * 15);
+if (delta & 1) app.minute.push(1);
+if (delta & 2) app.minute.push(2);
+if (delta & 4) app.minute.push(4);
+if (delta & 8) app.minute.push(8);
+
+//# sourceURL=restless-river-6D2.js
+</script>
+
+
+
+<script id="jsbin-source-javascript" type="text/source-javascript">var app = new Vue({
+  el: '#app',
+  data: {
+    hour: [],
+    quarter: [],
+    minute: [],
+    m: 0,
+    h: 0,
+    q: 0,
+  },
+  computed: {
+    time: function () {
+      const h = this.hour.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.h = h;
+      const q = 15 * this.quarter.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.q = q;
+      
+      const m = this.minute.map(_ => parseInt(_, 10)).reduce((acc, curr) => acc + curr, 0);
+      this.m = m;
+      
+      return `${h}:${(q + m + '').padStart(2, '0')}`;
+    }
+  }
+});
+
+
+const now = new Date();
+const hour = now.getHours() % 12;
+if (hour & 1) app.hour.push(1);
+if (hour & 2) app.hour.push(2);
+if (hour & 4) app.hour.push(2);
+if (hour & 8) app.hour.push(2);
+
+const minutes = now.getMinutes(); 
+
+const q = (minutes / 15 | 0)
+if (q & 1) app.quarter.push(1);
+if (q & 2) app.quarter.push(2);
+
+const delta = minutes - (q * 15);
+if (delta & 1) app.minute.push(1);
+if (delta & 2) app.minute.push(2);
+if (delta & 4) app.minute.push(4);
+if (delta & 8) app.minute.push(8);
+
+</script></body>
+</html>
