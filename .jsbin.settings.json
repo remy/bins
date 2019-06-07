@@ -1,0 +1,7 @@
+{
+  "app.splitColumns": true,
+  "editor.lineWrapping": true,
+  "editor.keyMap": "sublime",
+  "editor.fontFamily": "'Ubuntu mono'",
+  "editor.fontSize": 16
+}
