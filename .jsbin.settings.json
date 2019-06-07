@@ -1,7 +1,10 @@
 {
-  "app.splitColumns": true,
+  // you can also use comments,
+  "app.baseUrl": "https://remy.jsbin.me",
+  "app.theme": "light",
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Ubuntu mono, OperatorMono-Book, Operator Mono",
   "editor.lineWrapping": true,
   "editor.keyMap": "sublime",
-  "editor.fontFamily": "'Ubuntu mono'",
-  "editor.fontSize": 16
+  "app.splitColumns": true
 }
