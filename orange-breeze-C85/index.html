@@ -20,8 +20,22 @@ html {
 body {
   background: #222;
   color: #fefefe;
-  max-width: 600px;
+  width: 600px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+#app > div {
+  display: flex;
+  flex-direction: row;
+}
+
+input[type=text] {
+  margin-left: 8px;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
 }
 </style>
 </head>
@@ -30,17 +44,19 @@ body {
   <h1>
     Spy Text Encoder
   </h1>
-  <select v-model="rotSelected">
-    <option v-for="i in rot">{{ i }}</option>
-  </select>
-  <input v-model="input">
+  <div>
+    <select v-model="rotSelected">
+      <option v-for="i in rot">{{ i }}</option>
+    </select>
+    <input type="text" v-model="input">
+  </div>
   <p>
     {{output}}
   </p>
   </div>
 <!--boot js--><script id="jsbin-javascript" defer>console.clear()
 const length = 26;
-const letters = Array.from({ length }, (_, i) => String.fromCharCode(97 + i));
+const letters = Array.from({ length }, (_, i) => String.fromCharCode(65 + i));
 const rot = Array.from({ length }, (_, i) => i);
 let rotSelected = new Date().getDate();
 if (rotSelected > length - 1) rotSelected = 0;
@@ -49,7 +65,7 @@ const v = new Vue({
   el: '#app',
   data: {
     rot,
-    input: 'abc',
+    input: 'Keep this secret',
     rotSelected,
   },
   computed: {
@@ -57,7 +73,7 @@ const v = new Vue({
     	const chrs = this.input.trim().split('');
       const r = parseInt(this.rotSelected);
       return chrs.map(_ => {
-        const code = _.toLowerCase();
+        const code = _.toUpperCase();
         const i = letters.indexOf(code);
         if (i === -1) return ' ';
         const index = (i + r) % length;
