@@ -8,7 +8,9 @@
   "editor.keyMap": "sublime",
   "app.splitColumns": true,
   "editor.extraKeys": {
-    "Cmd-Space": "snippets",
-    "Esc": "dismiss"
+    "Tab": "snippets", // appears broken :-\
+    "Esc": "dismiss",
+    "Alt-Up": "swapLineUp",
+    "Alt-Down": "swapLineDown"
   }
 }
