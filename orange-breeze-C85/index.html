@@ -37,6 +37,10 @@ input[type=text] {
   border-radius: 4px;
   padding: 0 10px;
 }
+
+.output {
+  letter-spacing: 4px;
+}
 </style>
 </head>
 <body>
@@ -50,7 +54,7 @@ input[type=text] {
     </select>
     <input type="text" v-model="input">
   </div>
-  <p>
+  <p class="output">
     {{output}}
   </p>
   </div>
@@ -83,8 +87,6 @@ const v = new Vue({
     }
   }
 });
-
-
 </script>
 </body>
 </html>
