@@ -6,5 +6,9 @@
   "editor.fontFamily": "Ubuntu mono, OperatorMono-Book, Operator Mono",
   "editor.lineWrapping": true,
   "editor.keyMap": "sublime",
-  "app.splitColumns": true
+  "app.splitColumns": true,
+  "editor.extraKeys": {
+    "Cmd-Space": "snippets",
+    "Esc": "dismiss"
+  }
 }
