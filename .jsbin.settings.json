@@ -1,0 +1,16 @@
+{
+  // you can also use comments,
+  "app.baseUrl": "https://remy.jsbin.me",
+  "app.theme": "light",
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Ubuntu mono, OperatorMono-Book, Operator Mono",
+  "editor.lineWrapping": true,
+  "editor.keyMap": "sublime",
+  "app.splitColumns": true,
+  "editor.extraKeys": {
+    "Tab": "snippets", // appears broken :-\
+    "Esc": "dismiss",
+    "Alt-Up": "swapLineUp",
+    "Alt-Down": "swapLineDown"
+  }
+}

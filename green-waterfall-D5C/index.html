@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+.card {
+/*   display: none; */
+}
+
+img {
+  height: 125px;
+  position:relative;
+  z-index:1 ;
+}
+
+body > img,
+.card {
+  margin: 2px;
+}
+
+body {
+  --h: 19em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  overflow: hidden;
+  position: relative;
+  height: 125px;
+  width: 125px;
+/*   margin: 20px; */
+  background: linear-gradient(180deg, #de7226, #eee);
+}
+
+.card:before, .card:after {
+  --p: 0;
+  --s: calc(1 - 2*var(--p));
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-mask: var(--m);
+  mask: var(--m);
+  content: "";
+}
+.card:after {
+  --p: 1 ;
+}
+.card:nth-child(1):before, .card:nth-child(1):after {
+  background: linear-gradient(calc(var(--s)*45deg), transparent calc(50% - 1px), #4B384C 0, #4B384C calc(50% + 1px), transparent 0) 0 0/ 19px 19px;
+  --m: linear-gradient(red 50%, transparent 50%)
+  				0 calc(var(--p)*19px)/ 100% 38px;
+}
+.card:nth-child(2):before, .card:nth-child(2):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: repeating-linear-gradient(calc(var(--s)*45deg), #4B384C 0, #4B384C 3px, transparent 0, transparent 13px);
+  --m: repeating-radial-gradient(circle,
+  					var(--c0) 0, var(--c0) 2em,
+  					var(--c1) 0, var(--c1) 4em)
+  ;
+}
+.card:nth-child(3):before, .card:nth-child(3):after {
+  background: repeating-radial-gradient(circle, #4B384C 0, #4B384C 1px, transparent 2px, transparent 7px, #4B384C 8px) calc(var(--p)*32px) 0/ 64px 64px;
+  --m: linear-gradient(red 50%, transparent 50%)
+  		0 calc(var(--p)*32px)/ 100% 64px
+  ;
+}
+.card:nth-child(4):before, .card:nth-child(4):after {
+  background: linear-gradient(calc(var(--s)*45deg), transparent calc(50% - 1px), #4B384C 0, #4B384C calc(50% + 1px), transparent 0) 0 0/ 0.5em 0.5em;
+  --m:
+  	linear-gradient(red 50%, transparent 0)
+  			0 0/ 4em 4em,
+  	linear-gradient(90deg, red 50%, transparent 0)
+  	calc(var(--p)*2em) 0/ 4em 4em;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.card:nth-child(5):before, .card:nth-child(5):after {
+  background: radial-gradient(circle at calc(var(--p)*100%) 50%, transparent calc(0.5em - 1px), #4B384C 0, #4B384C calc(0.5em + 1px), transparent 0) 0 0/ 1em 1em;
+  --m: linear-gradient(red 50%, transparent 50%)
+  				0 calc(var(--p)*1em)/ 100% 2em;
+}
+.card:nth-child(6):before, .card:nth-child(6):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: linear-gradient(calc(var(--s)*45deg), transparent calc(50% - 1px), #4B384C 0, #4B384C calc(50% + 1px), transparent 0) 50%/ 0.75em 0.75em;
+  --m: repeating-conic-gradient(var(--c0) 0%, var(--c0) 45deg, var(--c1) 0%, var(--c1) 90deg)
+  ;
+}
+.card:nth-child(7):before, .card:nth-child(7):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: linear-gradient(calc(var(--s)*45deg), transparent calc(50% - 1px), #4B384C 0, #4B384C calc(50% + 1px), transparent 0) 50%/ 1em 1em;
+  --m: repeating-conic-gradient(var(--c0) 0%, var(--c0) 22.5deg, var(--c1) 0%, var(--c1) 45deg)
+  ;
+}
+.card:nth-child(8):before, .card:nth-child(8):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: linear-gradient(calc(var(--p)*90deg), #4B384C 1px, transparent 0, transparent calc(100% - 1px), #4B384C 0) 50% 50%/ 0.35355em 0.35355em;
+  --m:
+  		repeating-linear-gradient(45deg,
+  				red 0, red 2.5em,
+  				transparent 0, transparent 5em),
+  		repeating-linear-gradient(-45deg,
+  				var(--c0) 0, var(--c0) 2.5em,
+  				var(--c1) 0, var(--c1) 5em)
+  ;
+}
+.card:nth-child(9):before, .card:nth-child(9):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: repeating-conic-gradient(from calc(var(--p)*6deg), #4B384C 0%, #4B384C 2deg, transparent 0%, transparent 12deg);
+  --m: repeating-radial-gradient(circle,
+  					var(--c0) 0, var(--c0) 2em,
+  					var(--c1) 0, var(--c1) 4em)
+  ;
+}
+.card:nth-child(10):before, .card:nth-child(10):after {
+  --c0: hsla(0, 0%, 0%, var(--p));
+  --c1: hsla(0, 0%, 0%, calc(1 - var(--p)));
+  background: linear-gradient(calc(var(--p)*90deg), #4B384C 1px, transparent 0, transparent calc(100% - 1px), #4B384C 0) 50% 50%/ 0.28284em 0.28284em;
+  --m:
+  	repeating-linear-gradient(45deg,
+  			red 0, red 2em,
+  			transparent 0, transparent 4em),
+  	repeating-linear-gradient(-45deg,
+  			var(--c0) 0, var(--c0) 2em,
+  			var(--c1) 0, var(--c1) 4em);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+img._9 {
+  background: radial-gradient(circle at right, rgba(233, 241, 223, 0) 0.3333333333em, #E9F1DF 0.3333333333em, #E9F1DF 0.4888888889em, rgba(233, 241, 223, 0) 0.4888888889em, rgba(233, 241, 223, 0) 0.8222222222em, #E9F1DF 0.8222222222em, #E9F1DF 0.9777777778em, rgba(233, 241, 223, 0) 0.9777777778em, rgba(233, 241, 223, 0) 1.3111111111em, #E9F1DF 1.3111111111em, #E9F1DF 1.4666666667em, rgba(233, 241, 223, 0) 1.4666666667em) 0 0, radial-gradient(circle at left, rgba(233, 241, 223, 0) 0.5777777778em, #E9F1DF 0.5777777778em, #E9F1DF 0.7333333333em, rgba(233, 241, 223, 0) 0.7333333333em, rgba(233, 241, 223, 0) 1.0666666667em, #E9F1DF 1.0666666667em, #E9F1DF 1.2222222222em, rgba(233, 241, 223, 0) 1.2222222222em) 0 3.0514619883em, linear-gradient(to right top, #E9F1DF 0.1555555556em, rgba(233, 241, 223, 0) 0.1555555556em) 1.2222222222em 0.1555555556em, linear-gradient(to left top, #E9F1DF 0.1555555556em, rgba(233, 241, 223, 0) 0.1555555556em) 1.2222222222em 0.1555555556em, linear-gradient(to right bottom, #E9F1DF 0.1555555556em, rgba(233, 241, 223, 0) 0.1555555556em) 1.2222222222em 0.1555555556em, linear-gradient(to left bottom, #E9F1DF 0.1555555556em, rgba(233, 241, 223, 0) 0.1555555556em) 1.2222222222em 0.1555555556em;
+  background-size: 2.8em 2.8em;
+  background-color: lightblue;
+}
+
+img._8 {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 93%, rgba(192, 204, 171, 0.5) 93%, rgba(192, 204, 171, 0.5) 100%), linear-gradient(90deg, rgba(232, 222, 103, 0.4) 5%, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, 0)), linear-gradient(rgba(232, 222, 103, 0.4) 5%, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0) 90%, rgba(229, 113, 82, 0.2) 90%, rgba(229, 113, 82, 0.2) 100%), linear-gradient(rgba(255, 255, 255, 0) 35%, rgba(255, 239, 195, 0.4) 35%, rgba(255, 239, 195, 0.4) 45%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0) 55%, rgba(232, 222, 103, 0.4) 55%, rgba(232, 222, 103, 0.4) 70%, rgba(255, 255, 255, 0) 70%), linear-gradient(90deg, rgba(255, 255, 255, 0) 35%, rgba(255, 239, 195, 0.4) 35%, rgba(255, 239, 195, 0.4) 45%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0) 55%, rgba(232, 222, 103, 0.4) 55%, rgba(232, 222, 103, 0.4) 70%, rgba(255, 255, 255, 0) 70%), linear-gradient(rgba(255, 255, 255, 0) 55%, rgba(255, 239, 195, 0.4) 55%, rgba(255, 239, 195, 0.4) 60%, rgba(255, 255, 255, 0) 60%), linear-gradient(90deg, rgba(255, 255, 255, 0) 55%, rgba(255, 239, 195, 0.4) 55%, rgba(255, 239, 195, 0.4) 60%, rgba(255, 255, 255, 0) 60%), linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(192, 204, 171, 0.5) 20%, rgba(192, 204, 171, 0.5) 80%, rgba(255, 255, 255, 0) 80%), linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(229, 113, 82, 0.2) 20%, rgba(229, 113, 82, 0.2) 80%, rgba(255, 255, 255, 0) 80%), linear-gradient(rgba(255, 255, 255, 0) 10%, rgba(232, 222, 103, 0.4) 10%, rgba(232, 222, 103, 0.4) 35%, rgba(255, 255, 255, 0) 35%), linear-gradient(90deg, rgba(255, 255, 255, 0) 10%, rgba(232, 222, 103, 0.4) 10%, rgba(232, 222, 103, 0.4) 35%, rgba(255, 255, 255, 0) 35%);
+  background-size: 14em 14em;
+  background-color: #FFEFC3;
+}
+
+img._1 {
+    background: repeating-linear-gradient(-45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.6) 0, rgba(192, 235, 250, 0.2) 2em), repeating-linear-gradient(45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.4) 0, rgba(192, 235, 250, 0.1) 2em), #FFF;
+  background-blend-mode: multiply;
+}
+
+img._7 {
+  --c : rgba(255,255,255,0.7);
+  --t : transparent;
+  	background-image:
+  repeating-linear-gradient(45deg, var(--t) 0, var(--t) 32px, var(--c) 32px, var(--c) 44px, var(--t) 44px, var(--t) 56px, var(--c) 56px, var(--c) 68px, var(--t) 0),
+  repeating-linear-gradient(-45deg, var(--t) 0, var(--t) 32px, var(--c) 32px, var(--c) 44px, var(--t) 44px, var(--t) 56px, var(--c) 56px, var(--c) 68px, var(--t) 0),
+  linear-gradient(to bottom left, #FC354C, #0ABFBC);
+}
+
+img._6 {
+    background: linear-gradient(45deg, #dde 12%, transparent 0, transparent 88%, #dde 0), linear-gradient(135deg, transparent 37%, #aab 0, #aab 63%, transparent 0), linear-gradient(45deg, transparent 37%, #dde 0, #dde 63%, transparent 0), #335;
+  background-size: 20px 20px;
+}
+
+img._5 {
+    background: 
+  linear-gradient(135deg, black 25%, transparent 25%) -50px 0,
+  linear-gradient(225deg, black 25%, transparent 25%) -50px 0,
+  linear-gradient(315deg, black 25%, transparent 25%),
+  linear-gradient(45deg, black 25%, transparent 25%);	
+  background-size: 2em 2em;
+  background-color: #232323;
+}
+
+img._4 {
+    background: radial-gradient(circle at center 0, #B1C2B3 6.5%, #778691 6.5%, #778691 13%, #C7B773 14.3%, #C7B773 19.5%, #E3DB9A 20.8%, #E3DB9A 26%, #F5FCD0 27.3%, #F5FCD0 32.5%, #B1C2B3 33.8%, #B1C2B3 39%, #778691 40.3%, #778691 45.5%, rgba(119, 134, 145, 0) 46.8%) 0 0, radial-gradient(circle at center 0, #B1C2B3 6.5%, #778691 6.5%, #778691 13%, #C7B773 14.3%, #C7B773 19.5%, #E3DB9A 20.8%, #E3DB9A 26%, #F5FCD0 27.3%, #F5FCD0 32.5%, #B1C2B3 33.8%, #B1C2B3 39%, #778691 40.3%, #778691 45.5%, rgba(119, 134, 145, 0) 46.8%) 1.5em 1.5em, radial-gradient(circle at center 3em, #B1C2B3 6.5%, #778691 6.5%, #778691 13%, #C7B773 14.3%, #C7B773 19.5%, #E3DB9A 20.8%, #E3DB9A 26%, #F5FCD0 27.3%, #F5FCD0 32.5%, #B1C2B3 33.8%, #B1C2B3 39%, #778691 40.3%, #778691 45.5%, rgba(119, 134, 145, 0) 46.8%) 0 0, radial-gradient(circle at center 3em, #B1C2B3 6.5%, #778691 6.5%, #778691 13%, #C7B773 14.3%, #C7B773 19.5%, #E3DB9A 20.8%, #E3DB9A 26%, #F5FCD0 27.3%, #F5FCD0 32.5%, #B1C2B3 33.8%, #B1C2B3 39%, #778691 40.3%, #778691 45.5%, rgba(119, 134, 145, 0) 46.8%) 1.5em 1.5em;
+  background-color: #C7B773;
+  background-size: 3em 3em;
+}
+
+img._3 {
+  background: radial-gradient(circle at right, rgba(255, 255, 255, 0) 1.5em, #FCF2D7 1.5em, #FCF2D7 1.74em, rgba(255, 255, 255, 0) 1.74em) 0 0, radial-gradient(circle at left, rgba(255, 255, 255, 0) 1.5em, #FCF2D7 1.5em, #FCF2D7 1.74em, rgba(255, 255, 255, 0) 1.74em) 0 3.26em, radial-gradient(circle at right, rgba(255, 255, 255, 0) 1.5em, #FDC536 1.5em, #FDC536 1.74em, rgba(255, 255, 255, 0) 1.74em) 1.56em 0, radial-gradient(circle at left, rgba(255, 255, 255, 0) 1.5em, #FDC536 1.5em, #FDC536 1.74em, rgba(255, 255, 255, 0) 1.74em) 1.56em 3.26em, radial-gradient(circle at right, rgba(255, 255, 255, 0) 1.5em, #E65848 1.5em, #E65848 1.74em, rgba(255, 255, 255, 0) 1.74em) 3.12em 0, radial-gradient(circle at left, rgba(255, 255, 255, 0) 1.5em, #E65848 1.5em, #E65848 1.74em, rgba(255, 255, 255, 0) 1.74em) 3.12em 3.26em, radial-gradient(circle at right, rgba(255, 255, 255, 0) 1.5em, #2AB69D 1.5em, #2AB69D 1.74em, rgba(255, 255, 255, 0) 1.74em) 4.68em 0, radial-gradient(circle at left, rgba(255, 255, 255, 0) 1.5em, #2AB69D 1.5em, #2AB69D 1.74em, rgba(255, 255, 255, 0) 1.74em) 3.68em 3.26em;
+  background-size: 4em 4em;
+  background-color: #343844;
+  background-repeat: repeat;
+}
+
+img._2 {
+  background-image:
+    radial-gradient(
+      circle at 45% 30%,
+      #f06d06,
+      yellow
+    );
+  background: radial-gradient(circle, #B3CCA2 0.75em, rgba(255, 255, 255, 0) 0.75em, rgba(255, 255, 255, 0) 1.5em, rgba(204, 195, 148, 0.7) 1.5em, rgba(204, 195, 148, 0.7) 1.8em, rgba(255, 255, 255, 0) 1.8em) 0 0, radial-gradient(circle, #CCC394 0.75em, rgba(255, 255, 255, 0) 0.75em, rgba(255, 255, 255, 0) 1.5em, rgba(179, 204, 162, 0.7) 1.5em, rgba(179, 204, 162, 0.7) 1.8em, rgba(255, 255, 255, 0) 1.8em) 3em 3em, radial-gradient(circle, rgba(179, 204, 162, 0.7) 0.375em, rgba(255, 255, 255, 0) 0.375em) 3em 0, radial-gradient(circle, rgba(204, 195, 148, 0.7) 0.3em, rgba(255, 255, 255, 0) 0.3em) 0 3em;
+  background-size: 6em 6em;
+  background-color: #F2DBA5;
+  background-repeat: repeat;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+"></div>
+<div class="card">
+  
+  <img src="https://cloudup.com/cU5jihphrUc+">
+  </div>
+  <img class="_1" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_2" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_3" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_4" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_5" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_6" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_7" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_8" src="https://cloudup.com/cU5jihphrUc+">
+  <img class="_9" src="https://cloudup.com/cU5jihphrUc+">
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+</script>
+</body>
+</html>

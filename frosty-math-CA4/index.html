@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Feed links</title>
+  <script src="https://unpkg.com/memfetch"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+body {
+  font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column
+}
+
+#app {
+  max-width: 38rem;
+  padding: 2rem;
+  margin: auto;
+}
+
+li {
+  list-style: none;
+  padding: 20px;
+  border: 1px solid #bbb;
+  margin: 20px 0 40px 0;
+  border-radius: 4px;
+}
+
+li div :last-child {
+  margin-bottom: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+h2 a {
+  text-decoration: none;
+  color: black;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+}
+
+small {
+  color: #666;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="link in links.items">
+      <h2>
+        <a target="_blank" :href="link.url" >{{ link.title }}</a>
+      </h2>
+      <div class="body" v-html="link.content_html"></div>
+      <p>
+        <small>Tags: {{ link.tags | join(', ') }}</small>
+      </p>
+      <p>
+        <small>{{ link.date_published | formatDate }}</small>
+      </p>
+    </li>
+  </ul>
+</div>
+<!--boot js--><script id="jsbin-javascript" defer>new Vue({
+  el: '#app',
+  data: {
+    links: []
+  },
+  filters: {
+    formatDate(s) {
+      return new Date(s).toString()
+    },
+    join(s, v) {
+      return s.join(v)
+    }
+  },
+	mounted () {
+		fetch('https://feeds.remysharp.com/links.json')
+      .then(res => res.json())
+      .then(json => {
+      	this.links = json;
+      console.log(json)
+      });
+  }
+})
+</script>
+</body>
+</html>

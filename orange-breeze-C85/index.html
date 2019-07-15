@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>caesar shift</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  font-size: 24px;
+}
+
+html {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+body {
+  background: #222;
+  color: #fefefe;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#app > div {
+  display: flex;
+  flex-direction: row;
+}
+
+input[type=text] {
+  margin-left: 8px;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.output {
+  letter-spacing: 4px;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>
+    Spy Text Encoder
+  </h1>
+  <div>
+    <select v-model="rotSelected">
+      <option v-for="i in rot">{{ i }}</option>
+    </select>
+    <input type="text" v-model="input">
+  </div>
+  <p class="output">
+    {{output}}
+  </p>
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+const length = 26;
+const letters = Array.from({ length }, (_, i) => String.fromCharCode(65 + i));
+const rot = Array.from({ length }, (_, i) => i);
+let rotSelected = new Date().getDate();
+if (rotSelected > length - 1) rotSelected = 0;
+
+const v = new Vue({
+  el: '#app',
+  data: {
+    rot,
+    input: 'Keep this secret',
+    rotSelected,
+  },
+  computed: {
+    output() { 
+    	const chrs = this.input.trim().split('');
+      const r = parseInt(this.rotSelected);
+      return chrs.map(_ => {
+        const code = _.toUpperCase();
+        const i = letters.indexOf(code);
+        if (i === -1) return ' ';
+        const index = (i + r) % length;
+        console.log({ _, i, $: letters[index], index, r })
+        return letters[index];
+      }).join('');
+    }
+  }
+});
+</script>
+</body>
+</html>
