@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+canvas {
+/*   transform: scale(2); */
+  transform-origin: 0 0;
+/*   border: 1px solid red; */
+  display: block;
+  image-rendering: pixelated;
+}
+</style>
+</head>
+<body>
+<canvas width="320" height="240"></canvas>
+
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+
+const ctx = document.querySelector('canvas').getContext('2d');
+
+let flag = 1;
+let offset = 0;
+
+// const blue = (() => {
+//   const ctx = document.createElement('canvas').getContext('2d');
+//   ctx.canvas.width = ctx.canvas.height = 1;
+//   ctx.fillStyle = 'blue';
+//   ctx.fillRect(0, 0, 1, 1);
+//   return ctx.getImageData(0, 0, 1, 1);
+// })();
+
+// const yellow = (() => {
+//   const ctx = document.createElement('canvas').getContext('2d');
+//   ctx.canvas.width = ctx.canvas.height = 1;
+//   ctx.fillStyle = 'yellow';
+//   ctx.fillRect(0, 0, 1, 1);
+//   return ctx.getImageData(0, 0, 1, 1);
+// })();
+
+const dot = ({ i, ctx, d }) => {
+  const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+  for (let j = i; j < i + d; j += 1) {
+    imageData.data[4 * j] = pixel[0];
+    imageData.data[4 * j + 1] = pixel[1];
+    imageData.data[4 * j + 2] = pixel[2];
+    imageData.data[4 * j + 3] = 255;
+  }
+    // const x = j % ctx.canvas.width;
+    // const y = j / ctx.canvas.width | 0;
+  // console.log('paint %s', i + d)
+
+  ctx.putImageData(imageData, 0, 0);
+}
+
+const sleep = t => new Promise(resolve => setTimeout(resolve, t));
+
+const frameSize = () => [19, 23, 29, 31][Math.random() * 4 | 0];
+
+async function draw() {
+  const d = frameSize();
+  // dot({ ctx, d, i: offset })
+  if (false) {
+
+  const imageData = ctx.getImageData(
+    0,
+    0,
+    ctx.canvas.width,
+    ctx.canvas.height
+  );
+  ctx.putImageData(imageData, 0, 10);
+
+	ctx.fillRect(20, 0, 10, 10);
+  ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+
+  }
+
+  offset += d;
+
+  if (offset < ctx.canvas.width * ctx.canvas.height) {
+  //   // console.log(offset)
+    await sleep(0);
+  	// requestAnimationFrame(draw)
+    draw();
+  }
+}
+
+// noprotect
+
+c = 'yellow';
+yellow = [255, 255, 0];
+blue = [0, 0, 255];
+pixel = yellow;
+
+let i = 0;
+
+const paint = () => {
+  pixel = c === 'yellow' ? yellow : blue;
+  c = c === 'blue' ? 'yellow' : 'blue';
+  dot({ ctx, i, d: offset });
+  i += offset;
+  // setTimeout(paint, frameSize());
+  requestAnimationFrame(paint);
+  if (i > (ctx.canvas.width * ctx.canvas.height)) {
+    i = 0;
+    offset = 0;
+    draw();
+  }
+}
+
+draw();
+setTimeout(paint, frameSize())
+
+
+// let res = offset < (ctx.canvas.width * ctx.canvas.height);
+// while (res) {
+	// draw();
+  // res = offset < (ctx.canvas.width);
+// }
+
+console.log('fin %s', ctx.canvas.width * ctx.canvas.height)
+//# sourceURL=summer-frog-642.js
+</script>
+</body>
+</html>
