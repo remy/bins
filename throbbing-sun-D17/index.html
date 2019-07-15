@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Photo effect</title>
+<style id="jsbin-css">
+.halftone {
+  background: white;
+  position: relative;
+  filter: grayscale(1) contrast(25000%);
+  overflow: hidden;
+  transform: translateZ(0); /* force a HW accelerated layer */
+}
+
+.halftone > * {
+  filter: contrast(200%) brightness(0.45) blur(4px);
+}
+
+.halftone::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  right: -100%;
+  bottom: -100%;
+  background-blend-mode: multiply;
+  background: radial-gradient(4px 4px, black, white);
+  background-size: 4px 4px;
+  background-position: 0 -3px, -2px 0, 2px 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: rotate(11.25deg);
+  z-index: 1;
+}
+
+</style>
+</head>
+<body>
+
+    <div class="halftone">
+      <img class="halftone" src="https://remy.jsbin.me/images/remy-2014-twitter.png" crossOrigin>    
+  </div>
+</body>
+</html>
