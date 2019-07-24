@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MIDI.js Autoplay example</title>
+		<script src='https://www.midijs.net/lib/midi.js'></script>
+	<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: #eee;
+}
+</style>
+</head>
+	<body>	
+		<h1>drop to play...</h1>
+	<!--boot js--><script id="jsbin-javascript" defer>document.body.ondragover = () => false;
+document.body.ondrop = (e) => {
+  e.preventDefault();
+  MIDIjs.play(URL.createObjectURL(e.dataTransfer.files[0]));
+}
+
+</script>
+</body>
+</html>
