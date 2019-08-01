@@ -82,7 +82,7 @@ function render() {
     const bound = parseInt(document.querySelector('#bound').value, 10);
 
     for (let i = 0; i < w * h * 4; i += 4) {
-      const offset = r.pick(bound);
+      const offset = r(bound);
       img.data[i] = 255 - (offset / bound * 255);
       img.data[i+1] = 255 - (offset / bound * 255);
       img.data[i+2] = 255 - (offset / bound * 255);
