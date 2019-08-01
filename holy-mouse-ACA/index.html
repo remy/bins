@@ -68,7 +68,7 @@ function render() {
     type: 'text/javascript'
   });
   
-  const url = URL.createObjectURL(blob);
+  const url = code.startsWith('https://') ? code.trim() : URL.createObjectURL(blob);
   
   import(url).then(module => {
     const ctx = document.querySelector('canvas').getContext('2d');
