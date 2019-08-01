@@ -78,7 +78,7 @@ function render() {
 
     const img = ctx.getImageData(0, 0, w, h);
 
-    const r = module.default();
+    const r = module.default;
     const bound = parseInt(document.querySelector('#bound').value, 10);
 
     for (let i = 0; i < w * h * 4; i += 4) {
