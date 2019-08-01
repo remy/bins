@@ -74,6 +74,10 @@ if (bound) {
   document.querySelector('#bound').value = bound;
 }
 
+if (code && bound) {
+  render();
+}
+
 function render() {
   const code = document.querySelector('textarea').value;
   const blob = new Blob([code], {
