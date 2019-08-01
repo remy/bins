@@ -62,6 +62,18 @@ label {
 
 document.querySelector('button').onclick = render;
 
+const searchParams = new URLSearchParams(window.location.search);
+const code = searchParams.get('code');
+const bound = searchParams.get('bound');
+
+if (code) {
+  document.querySelector('textarea').value = code;
+}
+
+if (bound) {
+  document.querySelector('#bound').value = bound;
+}
+
 function render() {
   const code = document.querySelector('textarea').value;
   const blob = new Blob([code], {
