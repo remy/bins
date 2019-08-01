@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+#controls {
+  margin: 0 auto;
+  width: 60%;
+  border: 2px solid black;
+}
+
+textarea {
+  width: 100%;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+
+label {
+  display: block;
+  margin: 20px;
+}
+</style>
+</head>
+<body>
+<canvas></canvas>
+  <div id="controls">
+    <label>Upper bound: <input type="number"></label>
+    <label>Random function:<br>
+    <textarea placeholder="export default …"></textarea>
+      </label>
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+const ctx = document.querySelector('canvas').getContext('2d');
+
+const w = ctx.canvas.width = 640 / 2;
+const h = ctx.canvas.height = 480 /2;
+
+const img = ctx.getImageData(0, 0, w, h);
+
+const r = random();
+
+r.setSeed(2);
+
+const bound = 7;
+
+for (let i = 0; i < w * h * 4; i += 4) {
+  const offset = r.pick(bound);
+  img.data[i] = 255 - (offset / bound * 255);
+  img.data[i+1] = 255 - (offset / bound * 255);
+  img.data[i+2] = 255 - (offset / bound * 255);
+  img.data[i+3] = 255 - (offset / bound * 255);
+}
+
+ctx.putImageData(img, 0, 0);
+
+function random() {
+  let seed = Date.now();
+  let ctr = 0;
+
+  function setSeed(s) {
+    seed = s;
+  }
+
+  function pick(n) {
+    ctr++;
+    let index = random() >> 8; // high byte
+    index &= n;
+    index += ctr;
+
+    return index % n;
+  }
+
+  function random() {
+    const value = generate(seed);
+    seed = value;
+    return value;
+  }
+
+  function generate(value) {
+    return ((((value >> 9) & 1) ^ ((value >> 1) & 1)) << 15) | (value >> 1);
+  }
+
+  return {
+    pick,
+    setSeed
+  }
+}
+</script>
+</body>
+</html>
