@@ -11,20 +11,34 @@
   font-size: 18px;
 }
 
+html {
+  background: white;
+}
+
 #controls {
   margin: 0 auto;
-  width: 60%;
+  width: 80%;
   border: 2px solid black;
 }
 
 textarea {
   width: 100%;
+  height: 30vh;
+}
+
+button {
+  background: black;
+  color: white;
+  border: 3px solid black;
+  padding: 4px 16px;
 }
 
 canvas {
   display: block;
-  margin: 0 auto;
-  border: 2px solid black;
+  background: hotpink;
+  margin: 40px auto;
+  max-width: 100%;
+/*   border: 2px solid black; */
 }
 
 label {
@@ -34,69 +48,52 @@ label {
 </style>
 </head>
 <body>
-<canvas></canvas>
+<canvas width="640" height="480"></canvas>
   <div id="controls">
-    <label>Upper bound: <input type="number"></label>
+    <label>Upper bound: <input type="number" id="bound" value="10"></label>
     <label>Random function:<br>
-    <textarea placeholder="export default …"></textarea>
+    <textarea placeholder="export default …">export default () => Math.random() * 10 | 0</textarea>
       </label>
+    <label><button>
+      Run
+      </button></label>
   </div>
-<!--boot js--><script id="jsbin-javascript" defer>console.clear()
-const ctx = document.querySelector('canvas').getContext('2d');
+<!--boot js--><script id="jsbin-javascript" defer>console.clear();
 
-const w = ctx.canvas.width = 640 / 2;
-const h = ctx.canvas.height = 480 /2;
+document.querySelector('button').onclick = render;
 
-const img = ctx.getImageData(0, 0, w, h);
+function render() {
+  const code = document.querySelector('textarea').value;
+  const blob = new Blob([code], {
+    type: 'text/javascript'
+  });
+  
+  const url = URL.createObjectURL(blob);
+  
+  import(url).then(module => {
+    const ctx = document.querySelector('canvas').getContext('2d');
 
-const r = random();
+    const w = ctx.canvas.width = 640;
+    const h = ctx.canvas.height = 480;
 
-r.setSeed(2);
+    const img = ctx.getImageData(0, 0, w, h);
 
-const bound = 7;
+    const r = module.default();
+    const bound = parseInt(document.querySelector('#bound').value, 10);
 
-for (let i = 0; i < w * h * 4; i += 4) {
-  const offset = r.pick(bound);
-  img.data[i] = 255 - (offset / bound * 255);
-  img.data[i+1] = 255 - (offset / bound * 255);
-  img.data[i+2] = 255 - (offset / bound * 255);
-  img.data[i+3] = 255 - (offset / bound * 255);
+    for (let i = 0; i < w * h * 4; i += 4) {
+      const offset = r.pick(bound);
+      img.data[i] = 255 - (offset / bound * 255);
+      img.data[i+1] = 255 - (offset / bound * 255);
+      img.data[i+2] = 255 - (offset / bound * 255);
+      img.data[i+3] = 255; // solid
+    }
+
+    ctx.putImageData(img, 0, 0);
+  })
 }
 
-ctx.putImageData(img, 0, 0);
 
-function random() {
-  let seed = Date.now();
-  let ctr = 0;
-
-  function setSeed(s) {
-    seed = s;
-  }
-
-  function pick(n) {
-    ctr++;
-    let index = random() >> 8; // high byte
-    index &= n;
-    index += ctr;
-
-    return index % n;
-  }
-
-  function random() {
-    const value = generate(seed);
-    seed = value;
-    return value;
-  }
-
-  function generate(value) {
-    return ((((value >> 9) & 1) ^ ((value >> 1) & 1)) << 15) | (value >> 1);
-  }
-
-  return {
-    pick,
-    setSeed
-  }
-}
 </script>
 </body>
 </html>
