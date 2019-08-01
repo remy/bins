@@ -58,13 +58,16 @@ label {
       Run
       </button></label>
   </div>
-<!--boot js--><script id="jsbin-javascript" defer>console.clear();
+<!--boot js--><script id="jsbin-javascript" defer>// noprotect
+console.clear();
 
 document.querySelector('button').onclick = render;
 
 const searchParams = new URLSearchParams(window.location.search);
 const code = searchParams.get('code');
 const bound = searchParams.get('bound');
+
+document.querySelector('#bound').oninput = render;
 
 if (code) {
   document.querySelector('textarea').value = code;
@@ -80,6 +83,12 @@ if (code && bound) {
 
 function render() {
   const code = document.querySelector('textarea').value;
+  const bound = parseInt(document.querySelector('#bound').value, 10);
+  searchParams.set('code', encodeURIComponent(code));
+  searchParams.set('bound', bound);
+  
+  window.history.replaceState(null, null, `?${searchParams.toString()}`);
+  
   const blob = new Blob([code], {
     type: 'text/javascript'
   });
@@ -95,7 +104,6 @@ function render() {
     const img = ctx.getImageData(0, 0, w, h);
 
     const r = module.default;
-    const bound = parseInt(document.querySelector('#bound').value, 10);
 
     for (let i = 0; i < w * h * 4; i += 4) {
       const offset = r(bound);
