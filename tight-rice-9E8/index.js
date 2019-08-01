@@ -1,5 +1,5 @@
 
-<!--boot js--><script id="jsbin-javascript" defer>let seed = Date.now();
+let seed = Date.now();
 let ctr = 0;
 
 function setSeed(s) {
@@ -26,4 +26,3 @@ function generate(value) {
 }
 
 export default pick;
-</script>
