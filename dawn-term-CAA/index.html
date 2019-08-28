@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+  <title>Block animation</title>
+<style id="jsbin-css">
+* {
+  box-sizing: border-box;
+  font-family: monospace, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  font-variant: tabular-nums;
+}
+
+#box > span {
+/*   height: 35px; */
+/*   width: 88px; */
+  padding: 0;
+  display: inline-block;
+/*   width: 5ch; */
+  color: white;
+/*   background: red; */
+  white-space: nowrap;
+}
+
+.one, .zero {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.one {
+  background: black;
+  color: white;
+}
+
+.zero {
+  border-radius: 4px;
+  background: white;
+  color: black;
+}
+</style>
+</head>
+<body>
+<div id="box">
+  <span id="top">
+    <span class="zero">0</span><span class="one">1</span><span class="zero">0</span>
+  </span><span id="middle">
+    <span class="zero">0</span><span class="one">1</span><span class="one">1</span>
+  </span><span id="bottom">
+    <span class="zero">0</span><span class="one">1</span><span class="zero">0</span>
+	</span>
+</div>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+const $ = s => document.querySelector(s);
+
+var tl1 = new TimelineMax({
+  repeat: -1,
+  yoyo: true,
+  repeatDelay: 1,
+});
+var tl2 = new TimelineLite();
+var tl3 = new TimelineLite();
+var $t = $('#top');
+var $m = $('#middle');
+var $b = $('#bottom');
+
+tl1
+.to($m, .2, { y: '+=99%' , x: -96.3 })
+.to($b, .2, { y: '+=198%', x: -191.5})
+// .to($b, .2, { y: '+=198%'})
+// .to($m, .2, { y: '+=99%' })
+// .to($m, .2, { x: -96.3 })
+// .to($b, .2, { x: -191.5 })
+</script>
+</body>
+</html>
