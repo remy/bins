@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <button>
+    Query
+  </button>
+  <textarea></textarea>
+  <script>
+var body = `<!DOCTYPE html>
+<html lang="en-ie">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+<title>Adactio: Journal—The Weight of the WWWorld is Up to Us by Patty Toland</title>
+<meta name="description" content="A presentation at An Event Apart Chicago 2019." />
+<meta name="author" content="Jeremy Keith" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="article" />
+<meta property="article:author" content="Jeremy Keith" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" property="og:image" content="https://adactio.com/images/photo-300.jpg" />
+<meta name="twitter:site" content="@adactio" />
+<meta name="twitter:site:id" content="11250" />
+<meta name="twitter:creator" content="@adactio" />
+<meta name="twitter:creator:id" content="11250" />
+<meta name="twitter:url" property="og:url" content="https://adactio.com/journal/15740" />
+<meta name="twitter:title" property="og:title" content="The Weight of the WWWorld is Up to Us by Patty Toland" />
+<meta name="twitter:description" property="og:description" content="A presentation at An Event Apart Chicago 2019." />
+<link rel="canonical" href="https://adactio.com/journal/15740">
+<link rel="alternate amphtml" type="text/html" href="https://adactio.com/journal/15740/amp" />
+<link rel="me" href="mailto:jeremy@adactio.com" />
+<link rel="me" href="sms:+447792069292" />
+<link rel="me" href="ni:///sha-256;y5LuBRUHdxOlutHxDS2OnyEHuyFDai-rTxWMTuauXlI?ct=application/x-x509-user-cert" />
+<link rel="webmention" href="https://adactio.com/webmention" />
+<link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+<link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+<link rel="micropub" href="https://adactio.com/micropub" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Adactio" />
+<link rel="openid.server" href="https://indieauth.com/openid" />
+<link rel="openid.delegate" href="https://adactio.com/" />
+<link rel="microsub" href="https://aperture.p3k.io/microsub/152" />
+<link rel="alternate" type="application/rss+xml" title="Journal RSS" href="/journal/rss" />
+<link rel="alternate" type="application/rss+xml" title="Links RSS" href="/links/rss" />
+<link rel="alternate" type="application/rss+xml" title="Articles RSS" href="/articles/rss" />
+<link rel="alternate" type="application/rss+xml" title="Notes RSS" href="/notes/rss" />
+<link rel="alternate" type="application/rss+xml" title="Journal, links, articles and notes RSS" href="/rss/" />
+<link rel="alternate" type="application/json" title="Journal JSON Feed" href="/journal/feed.json" />
+<link rel="alternate" type="application/json" title="Links JSON Feed" href="/links/feed.json" />
+<link rel="alternate" type="application/json" title="Articles JSON Feed" href="/articles/feed.json" />
+<link rel="alternate" type="application/json" title="Notes JSON Feed" href="/notes/feed.json" />
+<link rel="author" href="/" title="About the author" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" />
+<link rel="shortcut icon" href="/icon.png" sizes="300x300" type="image/png" />
+<link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="/skins/default/global.css" />
+<link rel="stylesheet" href="/includes/css/print.css" media="print" title="print" />
+
+<!-- Ah, I see you want a peek at the source code. -->
+<!-- That's the great thing about the web: -->
+<!-- reverse engineering. -->
+<!-- If you have any questions, feel free to write to me: -->
+<!-- jeremy at adactio dot com -->
+
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+textarea {
+  margin: 20px 0;
+  padding: 8px;
+  display: block;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+
+<!-- Begin with the logo -->
+
+<div id="logo">
+<a href="https://adactio.com" title="Home"><span>adactio</span></a>
+</div>
+
+<header role="banner">
+
+<!-- Show any nice pictures here -->
+
+<div role="presentation">
+<div class="journal"></div>
+</div>
+
+<!-- Now we have the navigation -->
+
+<div role="navigation">
+
+<nav>
+<ul>
+<li><a aria-current="location" class="here" href="/journal">Journal</a></li>
+<li><a href="/links">Links</a></li>
+<li><a href="/articles">Articles</a></li>
+<li><a href="/notes">Notes</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+</nav>
+
+</div>
+
+</header>
+
+<!-- Here's the main content -->
+
+<main role="main">
+<article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<!-- A presentation at An Event Apart Chicago 2019. -->
+
+<h1 class="p-name" itemprop="headline">
+The Weight of the WWWorld is Up to Us by Patty Toland
+</h1>
+<h2>
+<time class="dt-published" datetime="2019-08-27T21:41:36"  itemprop="dateCreated pubdate datePublished">
+August 27th, 2019
+</time>
+</h2>
+
+<div class="e-content" itemprop="articleBody">
+<p>It&#8217;s Patty Toland&#8217;s first time at <a href="https://aneventapart.com/event/chicago-2019">An Event Apart</a>! She&#8217;s from the fantabulous <a href="https://www.filamentgroup.com/">Filament Group</a>. They&#8217;re dedicated to making the web work for everyone.</p>
+
+<p>A few years ago, a good friend of Patty&#8217;s had a medical diagnosis that required everyone to pull together. Another friend shared an article about how not to say the wrong thing. This is <a href="https://www.psychologytoday.com/us/blog/promoting-hope-preventing-suicide/201705/ring-theory-helps-us-bring-comfort-in">ring theory</a>. In a moment of crisis, the person involved is in the centre. You need to understand where you are in this ring structure, and only ever help and comfort <em>inwards</em> and dump concerns and problems <em>outwards</em>.</p>
+
+<p>At the same time, Patty spent time with her family at the beach. Everyone reads the same books together. There was a book about a platoon leader in Vietnam. 80% of the story was literally a litany of stuff&mdash;what everyone was carrying. This was peppered with the psychic and emotional loads that they were carrying.</p>
+
+<p>A month later there was a lot of coverage of Syrian refugees arriving in Europe. People were outraged to see refugees carrying smartphones as though that somehow showed they weren&#8217;t in a desperate situation. But smartphones are absolutely a necessity in that situation, and most of the phones were less expensive, lower-end devices. Refugeeinfo.eu was a useful site for people in crisis, but the navigation was designed to require JavaScript.</p>
+
+<p>When people thing about mobile, they think about freedom and mobility. But with that JavaScript decision, the developers piled baggage on to the users.</p>
+
+<p>There was a common assertion that slow networks were a third-world challenge. Remember Facebook&#8217;s network challenges? They always talked about new markets in India and Africa. The implication is that this isn&#8217;t <em>our</em> problem in, say, Omaha or New York.</p>
+
+<p>Pew Research provided a lot of data back then that showed that this thinking was wrong. Use of cell phones, especially smartphones and tablets, escalated dramatically in the United States. There was a trend towards mobile-only usage. This was in low-income households&mdash;about one third of the population. Among 5,400 panelists, 15% did not have a JavaScript-enabled device.</p>
+
+<p>Pew Research provided updated data this year. The research shows an increase in those trends. Half of the population access the web primarily on mobile. The cost of a broadband subscription is too expensive for many people. Sometimes broadband access simply isn&#8217;t available.</p>
+
+<p>There&#8217;s a term called &#8220;the homework gap.&#8221; Two thirds of teachers assign broadband-dependent homework, while one third of students have no access to broadband.</p>
+
+<p>At most 37% of people have unlimited data. Most people run out of data on a frequent basis.</p>
+
+<p>Speed also varies wildly. 4G doesn&#8217;t really mean anything. The data is all over the place.</p>
+
+<p>This shows that network issues are definitely not just a third world challenge.</p>
+
+<p>On the 25th anniversary of the web, Tim Berners-Lee said the web&#8217;s potential was only just beginning to be glimpsed. Everyone has a role to play to ensure that the web serves all of humanity. In his contract for the web, Tim outlined what governments, companies, and users need to do. This reminded Patty of ring theory. The user is at the centre. Designers and developers are in the next circle out. Then there&#8217;s the circle of companies. Then there are platforms, browsers, and frameworks. Finally there&#8217;s the outer circle of governments.</p>
+
+<p>Are we helping in or dumping in? If you look at the data for the average web page size (2 megabytes), we are definitely dumping in. The size of third-party JavaScript has octupled.</p>
+
+<p>There&#8217;s no way for a user to know before clicking a link how big and bloated the page is going to be. Even if they abandon the page load, they&#8217;ve still used (and wasted) a lot of data.</p>
+
+<p>Third party scripts&mdash;like ads&mdash;are really bad at dumping in (to use the ring theory model). The <em>best</em> practices for ads suggest that up to 100 additional HTTP requests is totally acceptable. Unbelievable! It doesn&#8217;t matter how performant you&#8217;ve made a site when this crap gets piled on top of it.</p>
+
+<p>In 2018, the internet&#8217;s data centres alone may already have had the same carbon footprint as all global air travel. This will probably triple in the next seven years. The amount of carbon it takes to train a single AI algorithm is more than the entire life cycle of a car. Then there&#8217;s fucking Bitcoin. A single Bitcoin transaction could power 21 US households. It is <em>designed</em> to use&mdash;specifically, waste&mdash;more and more energy over time.</p>
+
+<p>What should we be doing?</p>
+
+<p>Accessibility should be at the heart of what we build. Plan, test, educate, and advocate. If advocacy doesn&#8217;t work, fear can be a motivator. There&#8217;s an increase in accessibility lawsuits.</p>
+
+<p>Our websites should be as light as possible. Ask, measure, monitor, and optimise. <a href="http://requestmap.webperf.tools/">RequestMap</a> is a great tool for visualising requests. You can see the size and scale of third-party requests. You can also see when images are far, far bigger than they need to be.</p>
+
+<p>Take a critical guide to everything and pare everything down. Set perforance budgets&mdash;file size budgets, for example. Optimise images, subset custom fonts, lazyload images and videos, get third-party tools out of the critical path (or out completely), and seek out lighter frameworks.</p>
+
+<p>Test on real devices that real people are using. See Alex Russell&#8217;s data on the differences between the kind of devices <em>we</em> use and typical low-end devices. We literally need to stop people in JavaScript.</p>
+
+<p>Push the boundaries. See the amazing work that Adrian Holovaty did with Soundslice. He had to make on-the-fly sheet music generation work on old iPads that musicians like to use. He recommends keeping old devices around to see how poorly your product is working on it.</p>
+
+<blockquote>
+  <p>If you have some power, then your job is to empower somebody else.</p>
+</blockquote>
+
+<p>&mdash;Toni Morrison</p>
+
+</div>
+
+<footer>
+<p class="meta">
+<time datetime="2019-08-27T21:41:36Z">
+9:41pm
+</time>
+</p>
+<p class="meta">
+Tagged with
+<a rel="tag" href="/journal/tags/aeachi">aeachi</a>
+<a rel="tag" href="/journal/tags/aeachi2019">aeachi2019</a>
+<a rel="tag" href="/journal/tags/liveblogging">liveblogging</a>
+<a rel="tag" href="/journal/tags/conference">conference</a>
+<a rel="tag" href="/journal/tags/talk">talk</a>
+<a rel="tag" href="/journal/tags/presentation">presentation</a>
+<a rel="tag" href="/journal/tags/aneventapart">aneventapart</a>
+<a rel="tag" href="/journal/tags/performance">performance</a>
+<a rel="tag" href="/journal/tags/accessibility">accessibility</a>
+<a rel="tag" href="/journal/tags/networks">networks</a>
+<a rel="tag" href="/journal/tags/mobile">mobile</a>
+<a rel="tag" href="/journal/tags/bandwidth">bandwidth</a>
+<a rel="tag" href="/journal/tags/size">size</a>
+<a rel="tag" href="/journal/tags/speed">speed</a>
+<a rel="tag" href="/journal/tags/frontend">frontend</a>
+<a rel="tag" href="/journal/tags/development">development</a>
+<a rel="tag" href="/journal/tags/web">web</a>
+<a rel="tag" href="/journal/tags/humanity">humanity</a>
+</p>
+<p class="meta">
+Also on
+<a rel="syndication" class="u-syndication" href="https://medium.com/@adactio/4b7522fa0c60">Medium</a>
+</p>
+</footer>
+
+<p>
+<a rel="next" href="/journal/15739" title="Web Forms: Now You See Them, Now You Don&rsquo;t! by Jason Grigsby">Older &raquo;</a>
+</p>
+
+<form method="post" action="/webmention">
+<p>Have you published a response to this? <label for="webmention-source">Let me know the <abbr title="Uniform Resource Locator">URL</abbr></label>:</p>
+<input type="url" name="source" id="webmention-source" />
+<input type="hidden" name="target" value="https://adactio.com/journal/15740" />
+<button type="submit">Ping!</button>
+</form>
+
+<section>
+<h2>Responses</h2>
+<article class="p-comment h-entry" id="comment74945">
+
+<h3>
+<a class="p-name u-url" href="https://twitter.com/zachleat/status/1166754491561119745">
+Zach Leatherman
+</a>
+</h3>
+
+<div class="e-content">
+<p>&ldquo;In 2018, the internet&rsquo;s data centers alone may already have had the same carbon footprint as all global air travel.&rdquo; &#128562;&#128562;&#128562; via <a href="https://adactio.com/journal/15740">adactio.com/journal/15740</a> <a href="https://twitter.com/adactio">@adactio</a>&rsquo;s summary of <a href="https://twitter.com/pattytoland">@pattytoland</a>&rsquo;s talk at <a href="https://twitter.com/search?q=%23aeachi">#aeachi</a></p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74945" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/zachleat/status/1166754491561119745">
+Zach Leatherman</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-28T16:48:42">
+Wednesday,
+August 28th, 2019
+at
+4:48pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<article class="p-comment h-entry" id="comment74947">
+
+<h3>
+<a class="p-name u-url" href="https://twitter.com/scottjehl/status/1166756878229102593">
+Scott Jehl
+</a>
+</h3>
+
+<div class="e-content">
+<p>Great notes/recap of <a href="https://twitter.com/pattytoland">@pattytoland</a>&#8217;s excellent talk at <a href="https://twitter.com/aneventapart">@aneventapart</a> Chicago yesterday by <a href="https://twitter.com/adactio">@adactio</a> <a href="https://twitter.com/search?q=%23aeachi">#aeachi</a> <a href="https://adactio.com/journal/15740">adactio.com/journal/15740</a></p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74947" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/scottjehl/status/1166756878229102593">
+Scott Jehl</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-28T16:58:11">
+Wednesday,
+August 28th, 2019
+at
+4:58pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<article class="p-comment h-entry" id="comment74946">
+
+<h3>
+<a class="p-name u-url" href="https://twitter.com/nhoizey/status/1166759013813542912">
+Nicolas Hoizey
+</a>
+</h3>
+
+<div class="e-content">
+<p>What if business air travel is reduced and replaced with conf calls? Even more carbon footprint for data centers, indeed. But I guess much more reduced carton footprint for air travel. (Not talking about air travel other than business here.)
+<a class="u-mention" href="https://adactio.com/journal/15740"></a></p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74946" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/nhoizey/status/1166759013813542912">
+Nicolas Hoizey</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-28T17:06:40">
+Wednesday,
+August 28th, 2019
+at
+5:06pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<article class="p-comment h-entry" id="comment74956">
+
+<h3>
+<a class="p-name u-url" href="https://twitter.com/tkadlec/status/1166833933989928960">
+Tim Kadlec
+</a>
+</h3>
+
+<div class="e-content">
+<p>It&#8217;s not the least bit surprising, but sounds like <a href="https://twitter.com/pattytoland">@pattytoland</a> gave a great talk at AEA! <a href="https://adactio.com/journal/15740">adactio.com/journal/15740</a></p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74956" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/tkadlec/status/1166833933989928960">
+Tim Kadlec</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-28T22:04:23">
+Wednesday,
+August 28th, 2019
+at
+10:04pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<article class="p-comment h-entry" id="comment74980">
+
+<h3>
+<a class="p-name u-url" href="https://www.aaron-gustafson.com/notebook/links/the-weight-of-the-wwworld-is-up-to-us-by-patty-toland/">
+Aaron Gustafson
+</a>
+</h3>
+
+<div class="e-content">
+<p>So much awesome content in Patty&rsquo;s talk. In particular&hellip;</p> <p>There was a common assertion that slow networks were a third-world challenge. Remember Facebook&rsquo;s network challenges? They always talked about new markets in India and Africa. The implication is that this isn&rsquo;t our problem in, say, Omaha or New York.</p> <p>Pew Research provided a lot of data back then that showed that this thinking was wrong. Use of cell phones, especially smartphones and tablets, escalated dramatically in the United States. There was a trend towards mobile-only usage. This was in low-income households&mdash;about one third of the population. Among 5,400 panelists, 15% did not have a JavaScript-enabled device.</p> <p class="read-on"> <a rel="original-article" href="https://adactio.com/journal/15740">Read on Adactio&rsquo;s Journal</a> </p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74980" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://www.aaron-gustafson.com/notebook/links/the-weight-of-the-wwworld-is-up-to-us-by-patty-toland/">
+Aaron Gustafson</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-29T23:29:54">
+Thursday,
+August 29th, 2019
+at
+11:29pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<article class="p-comment h-entry" id="comment74982">
+
+<h3>
+<a class="p-name u-url" href="https://twitter.com/AaronGustafson/status/1167508031325822979">
+Aaron Gustafson
+</a>
+</h3>
+
+<div class="e-content">
+<p>&#128278; The brilliant <a href="https://twitter.com/pattytoland">@pattytoland</a>&rsquo;s &ldquo;The Weight of the WWWorld is Up to Us&rdquo; talk as captured by <a href="https://twitter.com/adactio">@adactio</a>&rsquo;s furiously-typing fingers. <a href="https://twitter.com/search?q=%23AEACHI">#AEACHI</a> <a href="https://adactio.com/journal/15740">adactio.com/journal/15740</a></p>
+
+</div>
+
+<footer>
+<p class="meta">
+<a href="#comment74982" rel="bookmark">#</a>
+Posted by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/AaronGustafson/status/1167508031325822979">
+Aaron Gustafson</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-30T18:43:00">
+Friday,
+August 30th, 2019
+at
+6:43pm
+</abbr>
+</p>
+</footer>
+
+</article>
+<details class="p-comment h-entry">
+<summary><h3 class="p-name" style="display: inline">1 Like</h3></summary>
+<p class="meta" id="comment74933">
+<a href="#comment74933" rel="bookmark">#</a>
+Liked by
+<cite class="h-card p-author">
+<a class="u-url p-name" href="https://twitter.com/adactioJournal/status/1166478537395789826#favorited-by-19066088">
+Ivan Wilson</a>
+</cite>
+on
+<abbr class="dt-published" title="2019-08-28T01:13:09">
+Wednesday,
+August 28th, 2019
+at
+1:13am
+</abbr>
+</p>
+</details>
+</section>
+
+</article>
+
+<script>
+<!--
+if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    window.addEventListener('load', function() {
+        var data = {
+            "title": "The Weight of the WWWorld is Up to Us by Patty Toland",
+            "description": "A presentation at An Event Apart Chicago 2019.",
+            "published": "August 27th, 2019",
+            "timestamp": "1566942096"
+        };
+        localStorage.setItem(
+            window.location.origin + window.location.pathname,
+            JSON.stringify(data)
+        );
+    });
+}
+//-->
+<\/script>
+</main>
+
+<aside role="complementary">
+
+<h2>More information</h2>
+
+<!-- Begin the extra content -->
+
+<div class="box">
+
+<h3>About this site</h3>
+
+<address class="vcard h-card">
+<a href="https://adactio.com/" class="url u-url" rel="me">Adactio</a> is the online home of <a href="mailto:jeremy@adactio.com" class="email fn p-name u-email">Jeremy Keith</a>, a <span class="role p-role">web developer</span> and <span class="title p-job-title">author</span> living and working in <span class="adr p-adr"><span class="locality p-locality">Brighton</span>, <span class="country-name p-country-name">England</span></span>.
+</address>
+<p><a href="/contact/">Get in touch</a></p>
+</div>
+
+<div class="box">
+
+<h3>Customise</h3>
+
+<form method="get" action="/journal/15740" id="skinselection">
+<p>
+<label for="skin">Choose a theme&hellip;</label><br />
+<select name="skin" id="skin">
+<option value="default" selected="selected">default</option>
+<option value="tatemodern">tatemodern</option>
+<option value="seaside">seaside</option>
+<option value="zeldman">zeldman</option>
+<option value="adactizilla">adactizilla</option>
+<option value="sci-fi">sci-fi</option>
+<option value="renaissance">renaissance</option>
+<option value="hirnlego">hirnlego</option>
+</select>
+<input type="submit" value="Go!" id="submitskin" />
+<a href="/about/site/" title="what is this?">?</a>
+</p>
+</form>
+<p>This is the plain vanilla look.</p>
+
+</div>
+
+<div class="box" role="search">
+
+<h3>Search</h3>
+
+<form action="/journal/search/" method="get">
+<p><label for="query">Search the journal:</label><br /><input type="search" name="query" id="query" value="" />
+<button type="submit">Go!</button></p>
+</form>
+
+<ul>
+<li>Peruse the <a rel="contents" href="/journal/archive/" title="chronologically ordered">archive</a></li>
+<li>Browse the <a href="/journal/tags/">tags</a></li>
+</ul>
+
+</div>
+
+<div class="box">
+
+<h3>Subscribe</h3>
+
+<p>You can subscribe to the <a href="/journal/rss" rel="alternate" type="application/rss+xml" title="Journal RSS">journal RSS feed</a> or you can follow <a href="https://twitter.com/adactioJournal">@adactioJournal</a> on Twitter.</p>
+
+</div>
+
+<div class="box">
+
+<h3>Recommended reading</h3>
+<p>Hand-picked highlights from the archive.</p>
+<ul>
+<li>
+<h4><a href="/journal/15050">Split</a></h4>
+Materials and tools; client and server; declarative and imperative; inclusion and privilege.
+</li>
+<li>
+<h4><a href="/journal/9016">Web! What is it good for?</a></h4>
+Not absolutely nothing, but not absolutely everything either.
+</li>
+<li>
+<h4><a href="/journal/6786">Seams</a></h4>
+There is a crack, a crack in everything. That’s how the light gets in.
+</li>
+<li>
+<h4><a href="/journal/1283">Hyperdrive</a></h4>
+Last night in San Francisco.
+</li>
+<li>
+<h4><a href="/journal/1376">Design doing</a></h4>
+The opposite of design thinking.
+</li>
+<li>
+<h4><a href="/journal/1530">Iron Man and me</a></h4>
+The story of how one of my Flickr pictures came to be used in a Hollywood movie.
+</li>
+</ul>
+
+</div>
+</aside>
+
+
+<!-- The large print giveth and the small print taketh away -->
+
+<footer role="contentinfo">
+<p>&copy; 1998 - 2019 <a href="mailto:jeremy@adactio.com">Jeremy Keith</a>.</p>
+</footer>
+
+<script src="/includes/javascript/global.js" defer="defer"><\/script>
+<script>
+<!--
+// Register our service-worker
+if (navigator.serviceWorker) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/serviceworker.js', {
+            scope: '/'
+        });
+        if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({'command': 'trimCaches'});
+        }
+    });
+}
+//-->
+<\/script>
+<script>
+<!--
+(function() {
+    // Generate a timestamp (in seconds) on the server. This won't change if the page is served from a cache.
+    var serverTimestamp = 1567254672;
+    // Create a new Date object from the local date and time on the client.
+    var localDate = new Date();
+    // Convert the local date time to Universal Time (same as the server).
+    var localUTCString = localDate.toUTCString();
+    // Create a new Date object from the UTC date and time on the client.
+    var UTCDate = new Date(localUTCString);
+    // Generate a timestamp (in seconds) from the UTC date and time on the client.
+    var clientTimestamp = UTCDate.getTime() / 1000;
+    // Compare the server-generated timestamp to the client-generated timestamp.
+    if (clientTimestamp - serverTimestamp > (60 * 5)) {
+        document.querySelector('main').insertAdjacentHTML('afterbegin',\`
+        <p class="box">
+        <button style="float: right" onclick="this.parentNode.remove()">dismiss</button>
+        This page might be out of date. You can try <a href="javascript:window.location=window.location.href">refreshing</a>.
+        </p>
+        \`);
+    }
+})()
+//-->
+<\/script>`
+  </script>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+
+document.querySelector('textarea').value = body;
+
+document.querySelector('button').onclick = () => {
+  const html = document.querySelector('textarea').value;
+  
+  const p = new DOMParser();
+  const dom = p.parseFromString(html, 'text/html');
+  
+  console.log(dom.querySelector('title').innerText);
+  console.log(dom.querySelector('time').getAttribute('datetime'));
+}
+</script>
+</body>
+</html>
