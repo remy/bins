@@ -6,6 +6,7 @@
   <script src="https://unpkg.com/memfetch@1.1.2/dist/index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.min.js"> </script>
   <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.0.0-alpha0/date_fns.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.js"></script>
   <title>Markdown reviews</title>
 <style id="jsbin-css">
@@ -44,13 +45,13 @@
 {{ review.review | turndown }}
 </div>
 &lt;small class="reading-metadata"&gt;
-Read: {{ review.read | formatDate }}<span v-if="review.duration != 'unknown'">&lt;br&gt;Read in: {{ review.duration }}</span><span v-if="review.book.pages">
+Read: {{ review.read | formatDate }}<span v-if="review.duration != 'unknown'">&lt;br&gt;Read in: {{ review | duration }}</span><span v-if="review.book.pages">
 &lt;br&gt;Pages: {{ review.book.pages }}
 </span>&lt;/small&gt;
     </pre>
   </section>
 </div>
-<!--boot js--><script id="jsbin-javascript" defer>const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFDQnlCczFhYVl4IiwicGF0aCI6IiIsImlhdCI6MTU0Njg3NzY2MiwiZXhwIjoxNTQ2ODkyMDYyfQ.0P2cPXyjGOF74OyvSH9UZHZETCHDkbEpM5g3n2odA-Q';
+<!--boot js--><script id="jsbin-javascript" defer>const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFDQnlCczFhYVl4IiwicGF0aCI6IiIsImlhdCI6MTU3NzkxMzQxMywiZXhwIjoxNTc3OTE3MDEzfQ.sH36X-ATlyosb9jkheul_ulQJ2i5631PjB4O_PSGUaY';
 
 var turndownService = new TurndownService();
 Vue.filter('turndown', function (value) {
@@ -84,9 +85,16 @@ const app = new Vue({
       errored: false,
     }
   },
+  filters: {
+    duration(review) {
+      return dateFns.distanceInWordsStrict(review.started, review.read);
+      return 1;
+      
+    }
+  },
   async mounted () {
     try {
-      const res = await fetch('https://jsonbin.org/me/reads/2018', {
+      const res = await fetch('https://jsonbin.org/me/reads/2019', {
 		    headers: {'authorization': `Bearer ${token}`}
 		  });
 
@@ -96,6 +104,9 @@ const app = new Vue({
       }
       const json = await res.json();
       this.info = json;
+      this.info.sort((a, b) => {
+        return a.read < b.read ? -1 : 1
+      });
       this.loading = false;
     } catch (e) {
       console.log(e);
