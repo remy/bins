@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+
+body, html {
+  height: 100%;
+}
+
+iframe {
+  border: 5px solid #333;
+  width: 100%;
+  height: fit-content;
+}
+</style>
+</head>
+<body>
+<iframe src="#"></iframe>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+const f =   document.querySelector('iframe')
+
+f.srcdoc = `
+<script>
+
+window.onhashchange = () => console.log('changed');
+window.location = "#a"
+//window.location = "https://remy.jsbin.me/silent-frost-D3C/#few"
+
+<` + '/script>'
+</script>
+</body>
+</html>
