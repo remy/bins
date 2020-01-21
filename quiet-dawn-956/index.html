@@ -19,7 +19,7 @@
 <!--boot js--><script id="jsbin-javascript" defer>// console.clear()
 navigator.geolocation.getCurrentPosition(data => {
   const { latitude, longitude } = data.coords;
-$.getJSON(`https://remysharp.com/iss/iss-pass.json?lat=${longitude}&lon=${latitude}`, function(data) {
+$.getJSON(`https://remysharp.com/api/iss/iss-pass.json?lat=${longitude}&lon=${latitude}`, function(data) {
   console.log(data);
     data['response'].forEach(function (d) {
         var date = new Date(d['risetime']*1000);
