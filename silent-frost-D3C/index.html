@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+body {
+  background: #000;
+}
+
+code {
+  font-family: 'ubuntu mono', courier;
+}
+
+pre {
+  color: white;
+  background-color: #2f383d;
+  overflow-x: auto;
+	border-radius: 2px;
+}
+
+pre code {
+  display: block;
+  padding: 0.5em; }
+  pre code .markdown .emphasis {
+    font-style: italic; }
+  pre code .nginx .built_in {
+    font-weight: 300; }
+
+pre code,
+pre .subst,
+pre .lisp .title,
+pre .clojure .built_in,
+pre .nginx .title {
+  color: white; }
+
+pre .string,
+pre .title,
+pre .constant,
+pre .parent,
+pre .tag .value,
+pre .rules .value,
+pre .rules .value .number,
+pre .preprocessor,
+pre .ruby .symbol,
+pre .ruby .symbol .string,
+pre .aggregate,
+pre .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .addition,
+pre .flow,
+pre .stream,
+pre .bash .variable,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .tex .special,
+pre .erlang_repl .function_or_atom,
+pre .markdown .header {
+  color: #00FCD4; }
+
+pre .comment,
+pre .annotation,
+pre .template_comment,
+pre .diff .header,
+pre .chunk,
+pre .markdown .blockquote {
+  color: #969fa4; }
+
+pre .number,
+pre .title,
+pre .date,
+pre .regexp,
+pre .literal,
+pre .smalltalk .symbol,
+pre .smalltalk .char,
+pre .go .constant,
+pre .change,
+pre .markdown .bullet,
+pre .markdown .link_url {
+  color: #44C7F4; }
+
+pre .label,
+pre .tag,
+pre .javadoc,
+pre .ruby .string,
+pre .decorator,
+pre .filter .argument,
+pre .localvars,
+pre .array,
+pre .attr_selector,
+pre .important,
+pre .pseudo,
+pre .pi,
+pre .doctype,
+pre .deletion,
+pre .envvar,
+pre .shebang,
+pre .apache .sqbracket,
+pre .nginx .built_in,
+pre .tex .formula,
+pre .erlang_repl .reserved,
+pre .prompt,
+pre .markdown .link_label,
+pre .vhdl .attribute,
+pre .clojure .attribute,
+pre .coffeescript .property {
+  color: #FF9CE3; }
+
+pre .id,
+pre .phpdoc,
+pre .built_in,
+pre .aggregate,
+pre .css .tag,
+pre .javadoctag,
+pre .phpdoc,
+pre .yardoctag,
+pre .smalltalk .class,
+pre .winutils,
+pre .bash .variable,
+pre .apache .tag,
+pre .go .typename,
+pre .tex .command,
+pre .markdown .strong,
+pre .request,
+pre .status,
+pre .tag .title,
+pre .keyword {
+  color: #FF9A57; }
+
+pre .coffeescript .javascript,
+pre .javascript .xml,
+pre .tex .formula,
+pre .xml .javascript,
+pre .xml .vbscript,
+pre .xml .css,
+pre .xml .cdata {
+  opacity: 1; }
+
+</style>
+</head>
+<body>
+<pre><code class="js hljs javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> {Route} <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;
+<span class="keyword">import</span> auth <span class="keyword">from</span> <span class="string">'../Auth'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">GuardedRoute</span>(<span class="params">props</span>) </span>{
+  <span class="keyword">const</span> { component: Component, path} = props;
+  <span class="keyword">return</span> (
+    &lt;Route exact path={path} render={(props) =&gt; {
+     if (!auth.isAuthenticated()) return auth.login();
+      return &lt;Component {...props} /&gt;
+    }} /&gt;
+  );
+}
+
+export default GuardedRoute;
+</code></pre>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+</script>
+</body>
+</html>
