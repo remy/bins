@@ -27,6 +27,7 @@ html {
 </style>
 </head>
 <body>
+
 <pre id="output"></pre>
 <!--boot js--><script id="jsbin-javascript" defer>const output = document.querySelector('#output');
 
@@ -55,7 +56,7 @@ window.addEventListener('resize', render)
 
 render();
 
-setTimeout(() => window.scrollTo(1, 0), 500);
+window.addEventListener("load", () => setTimeout(() => window.scrollTo(0, 1), 0));
 </script>
 </body>
 </html>
