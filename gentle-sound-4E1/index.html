@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>dims</title>
+<style id="jsbin-css">
+* {
+  font-family: 'ubuntu mono', monospace, sans-serif;
+}
+
+html {
+  height: 100vh;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10vw;
+  background: #333;
+  color: #eee;
+  text-shadow: 1px -1px 0px #000;
+}
+
+pre {
+  
+}
+</style>
+</head>
+<body>
+<pre id="output"></pre>
+<!--boot js--><script id="jsbin-javascript" defer>const output = document.querySelector('#output');
+
+const getDevicePixelRatio = function () {
+    var ratio = 1;
+    // To account for zoom, change to use deviceXDPI instead of systemXDPI
+    if (window.screen.systemXDPI !== undefined && window.screen.logicalXDPI       !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {
+        // Only allow for values > 1
+        ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
+    }
+    else if (window.devicePixelRatio !== undefined) {
+        ratio = window.devicePixelRatio;
+    }
+    return ratio;
+};
+
+function render() {
+  output.innerHTML = `
+ Width: ${window.innerWidth}px
+Height: ${window.innerHeight}px
+ Ratio: ${getDevicePixelRatio().toFixed(1)}
+`;
+}
+
+window.addEventListener('resize', render)
+
+render();
+</script>
+</body>
+</html>
