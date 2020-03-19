@@ -19,6 +19,11 @@ html {
   color: #eee;
   text-shadow: 1px -1px 0px #000;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 </style>
 </head>
 <body>
@@ -49,6 +54,8 @@ Height: ${window.innerHeight}px
 window.addEventListener('resize', render)
 
 render();
+
+setTimeout(() => window.scrollTo(1, 0), 500);
 </script>
 </body>
 </html>
