@@ -17,16 +17,20 @@ const a = document.querySelector('a');
 const url = 'https://remysharp.com/2020/07/15/a-px-is-not-a-px'
 
 a.onclick = (e) => {
-  e.preventDefault();
-  const a = document.createElement('a')
-  
-  document.body.appendChild(a);
-  a.style = 'display: none';
-  
-  a.href = url;
-  a.target = '_blank';
-  a.click();
-  document.body.removeChild(a);
+  const isMobile = window.navigator.userAgent.indexOf('Mobile ') !== -1;
+
+  if (isMobile) {
+    e.preventDefault();
+    const a = document.createElement('a')
+
+    document.body.appendChild(a);
+    a.style = 'display: none';
+
+    a.href = url;
+    a.target = '_blank';
+    a.click();
+    document.body.removeChild(a);
+  }
 }
 </script>
 </body>
