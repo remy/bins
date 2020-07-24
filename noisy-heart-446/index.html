@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+<a href="https://remysharp.com/2020/07/17/works-offline">click me</a>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+const a = document.querySelector('a');
+const url = 'https://remysharp.com/2020/07/15/a-px-is-not-a-px'
+
+a.onclick = (e) => {
+  e.preventDefault();
+  const a = document.createElement('a')
+  
+  document.body.appendChild(a);
+  a.style = 'display: none';
+  
+  a.href = url;
+  a.target = '_blank';
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>
