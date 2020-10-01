@@ -43,6 +43,7 @@ function load(bytes, file) {
   const url = URL.createObjectURL(file);
   const img = new Image();
   img.onload = () => {
+    document.body.appendChild(img);
     ctx.drawImage(img, 0, 0, 1, 1, 0, 0, 100, 100);
     const imageData = ctx.getImageData(0, 0, c.width, c.height);
  	   
