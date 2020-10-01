@@ -9,9 +9,13 @@
   font-family: sans-serif;
 }
 
+body {
+  margin: 0;
+}
+
 canvas {
-  width: 256;
-  height: 256;
+  width: 32;
+  height: 2560;
 }
 </style>
 </head>
@@ -19,16 +23,18 @@ canvas {
 <canvas></canvas>
 <!--boot js--><script id="jsbin-javascript" defer>const ctx = document.querySelector('canvas').getContext('2d');
 
-const size = 10;
+const size = 3;
+ctx.canvas.height = 256* size;
 
 for (let i = 0; i < 256; i++) {
 	const c = document.createElement('canvas').getContext('2d');
-	c.canvas.height = c.canvas.width = size;
+	c.canvas.height = size;
+  c.canvas.width = 32;
 	c.fillStyle = `#ff${i.toString(16).padStart(2, '0')}ff`;
-	c.fillRect(0, 0, size, size);
+	c.fillRect(0, 0, 32, size);
   
-  const x = size * (i & 15);
-  const y = size * (i / 16 | 0);
+  const x = 0; size * (i & 15);
+  const y = size * i; // * (i / 16 | 0);
   
 	ctx.drawImage(c.canvas, x, y);
 }
