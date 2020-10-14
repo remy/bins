@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>OSA score calc</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+
+const securityWeight = 0.3;
+const maintenanceWeight = 0.35;
+const communityWeight = 0.2;
+const popularityWeight = 0.15;
+
+const p = 1;
+const m = 3;
+const c = 2;
+const s = 3;
+
+const pMax = 6;
+const mMax = 4;
+const cMax = 6;
+const sMax = 4;
+
+const health = (s / sMax) * securityWeight +
+  (m / mMax) * maintenanceWeight +
+  (c / cMax) * communityWeight +
+  (p / pMax) * popularityWeight;
+
+console.log(health, {s: (s / sMax) * securityWeight * 100,
+  m: (m / mMax) * maintenanceWeight * 100,
+  c: (c / cMax) * communityWeight * 100,
+  p: (p / pMax) * popularityWeight * 100});
+
+</script>
+</body>
+</html>
