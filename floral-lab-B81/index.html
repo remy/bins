@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: 'Menlo';
+}
+
+#t {
+  width: 400px;
+  height: 400px;
+  margin: 80px auto;
+  background: #cecece;
+  cursor: pointer;
+}
+
+#t > div {
+  float: left;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.on {
+  background: #f33;
+}
+
+p {
+  font-family: 'Menlo';
+  border: 1px solid #666;
+  padding: 4px;
+  margin: 20px;
+}
+
+button {
+  max-height: 40px;
+  cursor: pointer;
+  background: #222;
+  color: white;
+  padding: 4px 16px;
+ 	font-size: 18px;
+  border: 1px solid #ccc;
+  margin: 0 20px;
+}
+
+.output {
+  display: flex;
+}
+
+.output p {
+  margin: 0;
+  flex-grow: 1;
+}
+</style>
+</head>
+<body>
+<div id="t"></div>
+  <div class="output">
+    <p>
+    waiting
+  </p>
+  <button>
+    reset
+  </button>
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>const $ = s => document.querySelector(s);
+let selected = new Set();
+
+const t = $('#t');
+
+function div(i) {
+  const d = document.createElement('div');
+  d.textContent = i;
+  d.onclick = () => {
+    d.className = 'on';
+    selected.add(i);
+  }
+  return d;
+}
+
+function fill() {
+  for (let i = 0; i < 100; i++) {
+    t.appendChild(div(i))
+  }
+}
+
+function sleep(n) {
+  return new Promise(resolve => setTimeout(resolve, n));
+}
+
+const output = $('p');
+
+t.onclick = () => {
+  output.innerHTML = Array.from(selected).join(', ')
+}
+
+$('button').onclick = () => {
+  selected.clear();
+  output.textContent = 'waiting';
+  for (let i = 0; i < 100; i++) {
+    t.children[i].className = '';
+  }
+}
+
+fill();
+</script>
+</body>
+</html>
