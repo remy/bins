@@ -186,6 +186,10 @@ function tagExtract(source) {
       }
     }
   } while (s.length);
+  
+  if (image) {
+    images.push(Object.assign({}, image));
+  }
 
   return {
     images,
@@ -193,7 +197,6 @@ function tagExtract(source) {
     maintainers,
   };
 }
-
 </script>
 </body>
 </html>
