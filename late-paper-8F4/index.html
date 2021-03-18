@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: monospace;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+textarea {
+  font-size: 16px;
+  display: block;
+  padding: 8px;
+  border: 0;
+  width: 100%;
+  height: 33%;
+}
+
+#output {
+  border-top: 2px solid #ccc;
+  margin: 0;
+  padding: 8px;
+  max-width: 100%;
+  overflow: scroll;
+  position: relative;
+  background: #efefff;
+  flex-grow: 1;
+}
+
+#output:before {
+  content: '[result]';
+  font-size: 12px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+</style>
+</head>
+<body>
+<textarea spellcheck="false" id="input"># this file is generated via https://github.com/docker-library/httpd/blob/b3146c0dc0d3831077a28df82348c5afed4d9ea7/generate-stackbrew-library.sh
+
+Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon),
+             Joseph Ferguson <yosifkit@gmail.com> (@yosifkit)
+GitRepo: https://github.com/docker-library/httpd.git
+
+Tags: 2.4.46, 2.4, 2, latest
+Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, mips64le, ppc64le, s390x
+GitCommit: 077141ee37fca63972292c562ec0f632d0f831b1
+Directory: 2.4
+
+Tags: 2.4.46-alpine, 2.4-alpine, 2-alpine, alpine
+Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
+GitCommit: 5bc2d71c4c1949d98a2e8671eadc5043b6c0b7f4
+Directory: 2.4/alpine
+</textarea>
+<pre id="output"></pre>
+<!--boot js--><script id="jsbin-javascript" defer>const ta = document.querySelector('#input');
+const out = document.querySelector('#output');
+
+ta.oninput = run;
+
+function run() {
+  const res = tagExtract(ta.value);
+  out.textContent = JSON.stringify(res, 0, 2);
+}
+
+run();
+
+
+
+/**
+ * @param {string} line
+ * @param {string} key
+ * @returns {string[]}
+ */
+function stripAndSplit(line, key) {
+  if (!key) {
+    throw new Error('requires key');
+  }
+  return line
+    .replace(new RegExp(`^${key}: `), '')
+    .split(',')
+    .map((_) => _.trim())
+    .filter(Boolean);
+}
+
+/**
+ * @typedef {object} DockerTag
+ * @property {string} repo
+ * @property {string[]} maintainers
+ * @property {Image[]} images
+ */
+
+/**
+ * @typedef {object} Image
+ * @property {string[]} tags
+ * @property {string} Dockerfile
+ * @property {string[]} arch
+ */
+
+/**
+ * @param {string} source
+ * @returns {DockerTag}
+ */
+function tagExtract(source) {
+  const s = source.split('\n').map((_) => _.trim());
+
+  const images = [];
+  let image = null;
+  let maintainers = [];
+  let repo = '';
+
+  do {
+    let line = s.shift();
+
+    if (line.startsWith('#')) {
+      continue;
+    }
+
+    if (line.startsWith('Maintainers:')) {
+      maintainers.push(
+        ...stripAndSplit(line, 'Maintainers').map((_) =>
+          _.replace(/\s<.*$/, '')
+        )
+      );
+      while ((line = s.shift().trim()) && !line.startsWith('GitRepo')) {
+        maintainers.push(
+          ...line.split(',').map((_) => _.trim().replace(/\s<.*$/, ''))
+        );
+      }
+      if (line.startsWith('GitRepo:')) {
+        repo = stripAndSplit(line, 'GitRepo')[0].replace(/\.git$/, '');
+      }
+
+      do {
+        line = s.shift();
+      } while (line !== '');
+    }
+
+    // start of section
+    if (line.startsWith('Tags:')) {
+      if (image) {
+        images.push(Object.assign({}, image));
+      }
+      image = {};
+      image.tags = stripAndSplit(line, 'Tags');
+    }
+
+    if (line.startsWith('SharedTags:')) {
+      image.tags.push(...stripAndSplit(line, 'SharedTags'));
+    }
+
+    if (line.startsWith('Architectures:')) {
+      image.arch = stripAndSplit(line, 'Architectures');
+    }
+
+    if (line.startsWith('GitCommit:')) {
+      image.commit = stripAndSplit(line, 'GitCommit')[0];
+    }
+
+    if (line.startsWith('Directory:')) {
+      image.dir = stripAndSplit(line, 'Directory')[0];
+    }
+
+    if (line === '') {
+      if (image) {
+        image.Dockerfile = [repo, 'blob', image.commit, image.dir, 'Dockerfile']
+          .filter(Boolean)
+          .join('/');
+      }
+    }
+  } while (s.length);
+
+  return {
+    images,
+    repo,
+    maintainers,
+  };
+}
+
+</script>
+</body>
+</html>
