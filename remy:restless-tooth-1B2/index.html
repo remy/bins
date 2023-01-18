@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: 'ubuntu mono', monospace, sans-serif;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 25vh;
+}
+
+li {
+  line-height: 48px;
+  padding-right: 10vw;
+  text-align: right;
+}
+</style>
+</head>
+<body>
+	<ul>
+  	<li id="days">?</li>
+  	<li id="hours">?</li>
+  	<li id="minutes">?</li>
+  	<li id="seconds">?</li>
+  	<li id="ms">?</li>
+  </ul>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+const oDays = document.querySelector('#days');
+const oHours = document.querySelector('#hours');
+const oMinutes = document.querySelector('#minutes');
+const oSeconds = document.querySelector('#seconds');
+const oMS = document.querySelector('#ms');
+
+const xmas = new Date('2023-12-25 00:00:00').getTime();
+
+function updateTime() {
+  let result = xmas - Date.now(); // milliseconds until Christmas
+  oMS.textContent = `Millseconds: ${result.toLocaleString()}`;
+  result = Math.floor(result / 1000); // bit of a cheat
+  oSeconds.textContent = `Seconds: ${result.toLocaleString()}`;
+  result = Math.ceil(result / 60);
+  oMinutes.textContent = `Minutes: ${result.toLocaleString()}`;
+  result = Math.ceil(result / 60);
+  oHours.textContent = `Hours: ${result.toLocaleString()}`;
+  result = Math.ceil(result / 24);
+  oDays.textContent = `Days: ${result.toLocaleString()}`;
+  requestAnimationFrame(updateTime);
+}
+
+updateTime();
+</script>
+</body>
+</html>
