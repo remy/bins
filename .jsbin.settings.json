@@ -1,7 +1,7 @@
 {
   // you can also use comments,
   "app.baseUrl": "https://remy.jsbin.me",
-  "app.theme": "light",
+  "app.theme": "dark",
   "editor.fontSize": 16,
   "editor.fontFamily": "Ubuntu mono, OperatorMono-Book, Operator Mono",
   "editor.lineWrapping": true,
