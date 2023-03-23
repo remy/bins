@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+body {
+  margin: 20px;
+}
+
+div {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "a c"
+    "b c";
+}
+
+.title {
+  grid-area: a;
+}
+
+.sub {
+  grid-area: b;
+}
+
+.action {
+  grid-area: c;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+</style>
+</head>
+<body>
+	<div>
+		<p class="title">title</p>
+    <p class="sub">sub</p>
+    <p class="action">action</p>
+
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+</script>
+</body>
+</html>
