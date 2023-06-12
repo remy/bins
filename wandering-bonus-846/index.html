@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="DMG logo gen">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+html {
+  background: #222;
+  color: #eee;
+}
+
+* {
+  font-family: "ubuntu mono", "monaco";
+	background: inherit;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+}
+
+textarea {
+  border: 2px solid #333;
+  padding: 8px;
+  width: 100%;
+  max-width: 100%;
+  text-transform: uppercase;
+}
+
+canvas {
+  image-rendering: pixelated;
+  border: 0;
+  display: block;
+  margin: 20px auto;
+  width: calc(48px * 12);
+	background: #fff;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+<textarea placeholder="hex values here" id="input">CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D 00 08 11 1F 88 89 00 0E
+DC CC 6E E6 DD DD D9 99 BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E</textarea>
+<canvas></canvas>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear();
+const ctx = document.querySelector('canvas').getContext('2d');
+ctx.canvas.width = 48;
+ctx.canvas.height = 8;
+
+
+const input = document.querySelector('#input');
+input.oninput = render;
+
+render();
+
+function render() {
+  const values = input.value;
+  
+  ctx.clearRect(0, 0, 48, 8);
+  
+  // now paint
+  
+  const parsed = values.split(/[\s,\n]/).filter(Boolean).map(_ => parseInt('0x' + _, 16));
+  
+  const bits = parsed.map(toBin).join("").split("");
+  console.log(bits)
+  const image = new ImageData(48, 8);
+  
+  // noprotect
+  let res = '';
+  
+  let pos = 0;
+
+  for (let y = 0; y < 8; ++y) {
+    let i = ((Math.floor(y / 2) % 2) + Math.floor(y / 4) * 24);
+    for (let x = 0; x < 12; ++x, i += 2) {
+      const nibble = (y % 2) ? (parsed[i] & 0xF) : (parsed[i] >> 4);
+      for (let b = 4; b--; ) {
+        const res = ((nibble >> b) & 1);
+        
+        if (res) {
+          image.data[pos * 4 + 3] = 255;
+        }
+        
+        pos++;
+      }
+    }
+    res += ("\n");
+  }
+    
+  ctx.putImageData(image, 0, 0);
+}
+
+function toBin(v) {
+  return v.toString(2).padStart(8, "0");
+}
+</script>
+</body>
+</html>
