@@ -7,8 +7,8 @@
   <title>JS Bin</title>
 <style id="jsbin-css">
 html {
-  background: #222;
-  color: #eee;
+  background: #efefef;
+  color: #111;
 }
 
 * {
@@ -31,18 +31,19 @@ textarea {
 }
 
 canvas {
+  cursor: pointer;
   image-rendering: pixelated;
   border: 0;
   display: block;
   margin: 20px auto;
   width: calc(48px * 12);
 	background: #fff;
-  padding: 20px;
+  padding: 0px;
 }
 </style>
 </head>
 <body>
-<textarea placeholder="hex values here" id="input">CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D 00 08 11 1F 88 89 00 0E
+<textarea spellcheck="false" placeholder="hex values here" id="input">CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D 00 08 11 1F 88 89 00 0E
 DC CC 6E E6 DD DD D9 99 BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E</textarea>
 <canvas></canvas>
 <!--boot js--><script id="jsbin-javascript" defer>console.clear();
@@ -50,11 +51,125 @@ const ctx = document.querySelector('canvas').getContext('2d');
 ctx.canvas.width = 48;
 ctx.canvas.height = 8;
 
+const black = new ImageData(1, 1);
+black.data[3] = 255;
+const white = new ImageData(1, 1);
 
 const input = document.querySelector('#input');
 input.oninput = render;
 
+let drawing = false;
+let shift = false;
+
+ctx.canvas.onmousedown = down;
+ctx.canvas.oncontextmenu = e => {
+  shift = true;
+  draw(e);
+}
+
+ctx.canvas.onmousemove = (event) => {
+  if (drawing) draw(event);
+}
+
+document.body.onmouseup = () => {
+  drawing = false;
+  shift = false;
+}
+
 render();
+
+function down(event) {
+  drawing = true;
+  draw(event);
+}
+
+function draw(e) {
+  console.clear();
+  if (e.shiftKey) shift = true;
+  e.preventDefault();
+  
+  const { x, y, index } = getCoords(e, 12, 12);
+  console.log({ x, y, index });
+  
+  const colour = shift ? white : black;
+  
+  ctx.putImageData(colour, x, y);
+
+  
+  // serialise
+  const image = ctx.getImageData(0, 0, 48, 8);
+  const bits = Array.from({ length: 48 * 8 }, (_, i) => image.data[i * 4 + 3] > 0 ? 1 : 0);    
+  const serialised = Uint8Array.from({ length: 48 });
+  
+  for (let i = 0; i < bits.length; i++) {
+    const { byte, offset, i: j } = getBitPositionForI(i);
+    const bit = bits[j];
+    
+    let v = serialised[byte];
+    v = v & ~(1 << offset); // zero out our bit
+    if (bit) {
+      v = v | (1 << offset);
+    }
+    serialised[byte] = v;
+
+    if (byte === 2) {
+      // console.log({ offset, bit, i, j, byte })
+      // console.log(toHex(v));
+    }
+    
+
+  }
+  
+  const res = Array.from(serialised).map(toHex).join(" ");
+  input.value = res;
+}
+
+function toHex(_) {
+  return _.toString(16).padStart(2, "0").toUpperCase();
+}
+
+function getBitPositionForI(i) {
+  const x = i % 48;
+  const y = (i / 48) | 0;
+  let byte = (y / 2 | 0) + (x / 4 | 0) * 2;
+  if (y > 3) byte += 22; // FIXME unsure why it's 22!
+  
+  let offset = i % 4;
+  if (y % 2) offset += 4;
+
+  return { byte, offset: 7 - offset, i }
+}
+
+function getCoords(e, scale) {
+  let { clientX, clientY } = e;
+
+  if (e.type.startsWith('touch')) {
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+  }
+
+  const rect = e.target.getBoundingClientRect();
+  const x = ((clientX - rect.left) / scale) | 0; //x position within the element.
+  const y = ((clientY - rect.top) / scale) | 0; //y position within the element.
+  const index = xyToIndex({ x, y, w: 48, h: 8 });
+  return { x, y, index };
+}
+
+function xyToIndex({ x, y, w, h }) {
+  if (x < 0) {
+    return null;
+  }
+
+  if (x >= w) {
+    return null;
+  }
+
+  if (y >= h) {
+    return null;
+  }
+
+  return w * y + x;
+}
 
 function render() {
   const values = input.value;
@@ -66,14 +181,11 @@ function render() {
   const parsed = values.split(/[\s,\n]/).filter(Boolean).map(_ => parseInt('0x' + _, 16));
   
   const bits = parsed.map(toBin).join("").split("");
-  console.log(bits)
   const image = new ImageData(48, 8);
-  
-  // noprotect
-  let res = '';
   
   let pos = 0;
 
+  // noprotect
   for (let y = 0; y < 8; ++y) {
     let i = ((Math.floor(y / 2) % 2) + Math.floor(y / 4) * 24);
     for (let x = 0; x < 12; ++x, i += 2) {
@@ -88,7 +200,6 @@ function render() {
         pos++;
       }
     }
-    res += ("\n");
   }
     
   ctx.putImageData(image, 0, 0);
