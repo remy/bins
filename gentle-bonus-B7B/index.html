@@ -1,0 +1,57 @@
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+}
+</style>
+<style>
+  body {
+    display: block;
+    background: black;
+  }
+  
+  svg.root{
+    border: 1px solid rgba(0,0,0,0.5);
+    width:200px;
+    height:100px;
+    margin:0 10px;
+    transition:  1s ease-in-out 0s;
+  }
+  svg.root:hover{
+    width:600px;
+  }
+  
+  p {
+    color: #D4AF37;
+  }
+</style>
+<div>
+
+<!-- this block of SVG was then inlined into a background image -->
+<svg class="root" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    svg {
+      overflow: visible;
+    }
+  </style>
+  <g id="container" fill="#D4AF37" fill-rule="nonzero">
+    <svg class="bar" y="50%">
+      <rect y="-1" width="100%" height="2"/>
+    </svg>
+    <svg class="left" y="50%">
+      <rect x="0" y="-6" height="12" width="6" fill="black" />
+      <path d="M0,0 l6,-6 l6,6 l-6,6" />
+    </svg>
+    <svg class="right" y="50%" x="100%">
+      <rect x="-6" y="-6" height="12" width="6" fill="black" />
+			<path d="M-12,0 l6,-6 l6,6 l-6,6" />
+    </svg>
+	</g>
+</svg>
+  <p>
+    Hover the svg above to see it scale.
+  </p>
+  </div>
+
+<!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+</script>
