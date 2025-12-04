@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+	<input type="number">
+  <p>
+    value: <output></output>
+  </p>
+<!--boot js--><script id="jsbin-javascript" defer>const $ = s => document.querySelector(s);
+
+$('input').oninput = e => $('output').value = e.target.value;
+</script>
+</body>
+</html>
