@@ -3,7 +3,7 @@
   "app.baseUrl": "https://remy.jsbin.me",
   "app.theme": "light",
   "editor.fontSize": 16,
-  "editor.fontFamily": "FiraCodeNerdFontMono, Ubuntu mono, OperatorMono-Book, Operator Mono",
+  "editor.fontFamily": "'FiraCode Nerd Font Mono', FiraCodeNerdFontMono, Ubuntu mono, OperatorMono-Book, Operator Mono",
   "editor.lineWrapping": true,
   "editor.keyMap": "sublime",
   "app.splitColumns": true,
